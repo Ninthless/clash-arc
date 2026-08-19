@@ -1,139 +1,89 @@
-<div>
+# Clash Arc
 
-[**简体中文**](README_zh_CN.md)
+[简体中文](README_zh_CN.md)
 
-</div>
+[![License](https://img.shields.io/github/license/Ninthless/clash-arc?style=flat-square)](LICENSE)
 
-## FlClash
-
-[![Downloads](https://img.shields.io/github/downloads/chen08209/FlClash/total?style=flat-square&logo=github)](https://github.com/chen08209/FlClash/releases/)[![Last Version](https://img.shields.io/github/release/chen08209/FlClash/all.svg?style=flat-square)](https://github.com/chen08209/FlClash/releases/)[![License](https://img.shields.io/github/license/chen08209/FlClash?style=flat-square)](LICENSE)
-
-[![Channel](https://img.shields.io/badge/Telegram-Channel-blue?style=flat-square&logo=telegram)](https://t.me/FlClash)
-
-A multi-platform proxy client based on ClashMeta, simple and easy to use, open-source and ad-free.
-
-on Desktop:
-<p style="text-align: center;">
-    <img alt="desktop" src="snapshots/desktop.gif">
-</p>
-
-on Mobile:
-<p style="text-align: center;">
-    <img alt="mobile" src="snapshots/mobile.gif">
-</p>
+Clash Arc is a community-maintained, cross-platform Mihomo client built with Flutter. It is based on
+[FlClash](https://github.com/chen08209/FlClash) and has been renamed and substantially modified.
 
 ## Features
 
-✈️ Multi-platform: Android, Windows, macOS and Linux
+- Android, Windows, macOS, and Linux support
+- Material 3 adaptive interface
+- Mihomo profiles, proxies, connections, requests, logs, and resources
+- TUN and system proxy integration
+- WebDAV backup and restore
+- Subscription conversion with version-pinned
+  [Aethersailor Custom OpenClash Rules](https://github.com/Aethersailor/Custom_OpenClash_Rules) templates
+- Multiple subscription sources with traffic and expiration metadata
 
-💻 Adaptive multiple screen sizes, Multiple color themes available
+## Project status
 
-💡 Based on Material You Design, [Surfboard](https://github.com/getsurfboard/surfboard)-like UI
+Clash Arc is an independent fork and is not affiliated with, endorsed by, or supported by the FlClash maintainers,
+Mihomo maintainers, OpenClash, or Aethersailor.
 
-☁️ Supports data sync via WebDAV
+The repository currently tracks active development. Review changes and create a backup before replacing an existing
+client configuration.
 
-✨ Support subscription link, Dark mode
+## Development
 
-## Use
+Requirements:
 
-### Linux
+- Flutter 3.44.4 for release parity
+- Dart SDK `>=3.8.0 <4.0.0`
+- Go toolchain for the Mihomo wrapper
+- Platform toolchains for the target operating system
 
-⚠️ Make sure to install the following dependencies before using them
-
-   ```bash
-    sudo apt-get install libayatana-appindicator3-dev
-    sudo apt-get install libkeybinder-3.0-dev
-   ```
-
-### Android
-
-Support the following actions
-
-   ```bash
-    com.follow.clash.action.START
-    
-    com.follow.clash.action.STOP
-    
-    com.follow.clash.action.TOGGLE
-   ```
-
-## Download
-
-<a href="https://chen08209.github.io/FlClash-fdroid-repo/repo?fingerprint=789D6D32668712EF7672F9E58DEEB15FBD6DCEEC5AE7A4371EA72F2AAE8A12FD"><img alt="Get it on F-Droid" src="snapshots/get-it-on-fdroid.svg" width="200px"/></a> <a href="https://github.com/chen08209/FlClash/releases"><img alt="Get it on GitHub" src="snapshots/get-it-on-github.svg" width="200px"/></a>
-
-### Homebrew
+Initialize submodules and dependencies:
 
 ```bash
-brew tap chen08209/tap
-brew install --cask flclash
+git submodule update --init --recursive
+flutter pub get
 ```
 
-## Build
+Run the application:
 
-1. Update submodules
-   ```bash
-   git submodule update --init --recursive
-   ```
+```bash
+flutter run
+```
 
-2. Install `Flutter` and `Golang` environment
+Verify the project:
 
-3. Build Application
+```bash
+flutter analyze --no-fatal-infos
+flutter test --reporter expanded
+```
 
-    - android
+Build packages through the project setup script:
 
-        1. Install `Android SDK`, `Android NDK`
+```bash
+dart setup.dart windows
+dart setup.dart macos
+dart setup.dart linux
+dart setup.dart android
+```
 
-        2. Set `ANDROID_NDK` environment variable
+Linux development requires:
 
-        3. Run build script
+```bash
+sudo apt-get install libayatana-appindicator3-dev libkeybinder-3-dev
+```
 
-           ```bash
-           dart setup.dart android
-           ```
+## Subscription conversion privacy
 
-    - windows
+Subscription URLs commonly contain access tokens. When a public conversion backend is selected, the backend receives
+the source URLs and conversion parameters. Use a trusted self-hosted SubConverter-compatible backend when privacy or
+availability is important.
 
-        1. Requires a Windows client
+Clash Arc only accepts HTTPS conversion backends and HTTPS source subscriptions in its built-in conversion flow.
 
-        2. Install `GCC`, `Inno Setup`
+## Licensing and attribution
 
-        3. Run build script
+Clash Arc is distributed under the [GNU General Public License v3.0](LICENSE), following the license of the upstream
+FlClash project.
 
-           ```bash
-           dart setup.dart windows
-           ```
+This repository preserves upstream copyright and license notices. Modifications are published as Clash Arc and can be
+reviewed through this repository's Git history.
 
-    - linux
-
-        1. Requires a Linux client
-
-        2. Dependencies are auto-installed by setup script, or manually:
-           ```bash
-           sudo apt-get install -y libayatana-appindicator3-dev libkeybinder-3.0-dev
-           ```
-
-        3. Run build script
-
-           ```bash
-           dart setup.dart linux
-           ```
-
-    - macOS
-
-        1. Requires a macOS client
-
-        2. Run build script
-
-           ```bash
-           dart setup.dart macos
-           ```
-
-## Star
-
-The easiest way to support developers is to click on the star (⭐) at the top of the page.
-
-<p style="text-align: center;">
-    <a href="https://api.star-history.com/svg?repos=chen08209/FlClash&Date">
-        <img alt="start" width=50% src="https://api.star-history.com/svg?repos=chen08209/FlClash&Date"/>
-    </a>
-</p>
+Third-party components and downloaded resources remain subject to their respective licenses.

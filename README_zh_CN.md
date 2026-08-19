@@ -1,139 +1,84 @@
-<div>
+# Clash Arc
 
-[**English**](README.md)
+[English](README.md)
 
-</div>
+[![License](https://img.shields.io/github/license/Ninthless/clash-arc?style=flat-square)](LICENSE)
 
-## FlClash
+Clash Arc 是使用 Flutter 构建的社区维护型跨平台 Mihomo 客户端。本项目基于
+[FlClash](https://github.com/chen08209/FlClash)，已经重命名并进行了大量修改。
 
-[![Downloads](https://img.shields.io/github/downloads/chen08209/FlClash/total?style=flat-square&logo=github)](https://github.com/chen08209/FlClash/releases/)[![Last Version](https://img.shields.io/github/release/chen08209/FlClash/all.svg?style=flat-square)](https://github.com/chen08209/FlClash/releases/)[![License](https://img.shields.io/github/license/chen08209/FlClash?style=flat-square)](LICENSE)
+## 功能
 
-[![Channel](https://img.shields.io/badge/Telegram-Channel-blue?style=flat-square&logo=telegram)](https://t.me/FlClash)
+- 支持 Android、Windows、macOS 和 Linux
+- Material 3 自适应界面
+- Mihomo 配置、代理、连接、请求、日志与资源管理
+- TUN 与系统代理集成
+- WebDAV 备份与恢复
+- 内置固定版本的
+  [Aethersailor Custom OpenClash Rules](https://github.com/Aethersailor/Custom_OpenClash_Rules) 订阅转换模板
+- 支持多订阅源，并读取流量与有效期信息
 
-基于ClashMeta的多平台代理客户端，简单易用，开源无广告。
+## 项目状态
 
-on Desktop:
-<p style="text-align: center;">
-    <img alt="desktop" src="snapshots/desktop.gif">
-</p>
+Clash Arc 是独立分支项目，与 FlClash、Mihomo、OpenClash 或 Aethersailor 的维护者不存在隶属、背书或官方支持关系。
 
-on Mobile:
-<p style="text-align: center;">
-    <img alt="mobile" src="snapshots/mobile.gif">
-</p>
+仓库目前处于活跃开发阶段。替换现有客户端配置前，请先审查变更并备份数据。
 
-## Features
+## 开发
 
-✈️ 多平台: Android, Windows, macOS and Linux
+环境要求：
 
-💻 自适应多个屏幕尺寸,多种颜色主题可供选择
+- 发布构建以 Flutter 3.44.4 为准
+- Dart SDK `>=3.8.0 <4.0.0`
+- 用于 Mihomo 包装层的 Go 工具链
+- 对应目标操作系统的平台工具链
 
-💡 基本 Material You 设计, 类[Surfboard](https://github.com/getsurfboard/surfboard)用户界面
-
-☁️ 支持通过WebDAV同步数据
-
-✨ 支持一键导入订阅, 深色模式
-
-## Use
-
-### Linux
-
-⚠️ 使用前请确保安装以下依赖
-
-   ```bash
-    sudo apt-get install libayatana-appindicator3-dev
-    sudo apt-get install libkeybinder-3.0-dev
-   ```
-
-### Android
-
-支持下列操作
-
-   ```bash
-    com.follow.clash.action.START
-    
-    com.follow.clash.action.STOP
-    
-    com.follow.clash.action.TOGGLE
-   ```
-
-## Download
-
-<a href="https://chen08209.github.io/FlClash-fdroid-repo/repo?fingerprint=789D6D32668712EF7672F9E58DEEB15FBD6DCEEC5AE7A4371EA72F2AAE8A12FD"><img alt="Get it on F-Droid" src="snapshots/get-it-on-fdroid.svg" width="200px"/></a> <a href="https://github.com/chen08209/FlClash/releases"><img alt="Get it on GitHub" src="snapshots/get-it-on-github.svg" width="200px"/></a>
-
-### Homebrew
+初始化子模块与依赖：
 
 ```bash
-brew tap chen08209/tap
-brew install --cask flclash
+git submodule update --init --recursive
+flutter pub get
 ```
 
-## Build
+运行应用：
 
-1. 更新 submodules
-   ```bash
-   git submodule update --init --recursive
-   ```
+```bash
+flutter run
+```
 
-2. 安装 `Flutter` 以及 `Golang` 环境
+验证项目：
 
-3. 构建应用
+```bash
+flutter analyze --no-fatal-infos
+flutter test --reporter expanded
+```
 
-    - android
+通过项目脚本构建安装包：
 
-        1. 安装  `Android SDK` ,  `Android NDK`
+```bash
+dart setup.dart windows
+dart setup.dart macos
+dart setup.dart linux
+dart setup.dart android
+```
 
-        2. 设置 `ANDROID_NDK` 环境变量
+Linux 开发依赖：
 
-        3. 运行构建脚本
+```bash
+sudo apt-get install libayatana-appindicator3-dev libkeybinder-3-dev
+```
 
-           ```bash
-           dart setup.dart android
-           ```
+## 订阅转换隐私
 
-    - windows
+订阅地址通常包含访问令牌。使用公共转换服务时，转换服务会收到源订阅地址和转换参数。重视隐私或稳定性时，请使用可信的自建
+SubConverter 兼容服务。
 
-        1. 你需要一个windows客户端
+Clash Arc 内置的订阅转换流程仅接受 HTTPS 转换服务和 HTTPS 源订阅。
 
-        2. 安装 `GCC`，`Inno Setup`
+## 许可证与署名
 
-        3. 运行构建脚本
+Clash Arc 遵循上游 FlClash 的许可证，以 [GNU General Public License v3.0](LICENSE) 发布。
 
-           ```bash
-           dart setup.dart windows
-           ```
+本仓库保留上游版权和许可证声明。所有修改均以 Clash Arc 名义发布，并可通过本仓库的 Git 历史查阅。
 
-    - linux
-
-        1. 你需要一个linux客户端
-
-        2. 依赖会由 setup 脚本自动安装，也可以手动安装：
-           ```bash
-           sudo apt-get install -y libayatana-appindicator3-dev libkeybinder-3.0-dev
-           ```
-
-        3. 运行构建脚本
-
-           ```bash
-           dart setup.dart linux
-           ```
-
-    - macOS
-
-        1. 你需要一个macOS客户端
-
-        2. 运行构建脚本
-
-           ```bash
-           dart setup.dart macos
-           ```
-
-## Star
-
-支持开发者的最简单方式是点击页面顶部的星标（⭐）。
-
-<p style="text-align: center;">
-    <a href="https://api.star-history.com/svg?repos=chen08209/FlClash&Date">
-        <img alt="start" width=50% src="https://api.star-history.com/svg?repos=chen08209/FlClash&Date"/>
-    </a>
-</p>
+第三方组件及下载资源仍分别遵循其各自许可证。
