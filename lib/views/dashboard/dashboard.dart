@@ -1,11 +1,12 @@
 import 'dart:math';
 
 import 'package:defer_pointer/defer_pointer.dart';
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/core/core.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/providers/providers.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/core/core.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/providers/providers.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -172,7 +173,7 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
   @override
   Widget build(BuildContext context) {
     final dashboardState = ref.watch(dashboardStateProvider);
-    final spacing = 14.mAp;
+    final spacing = 16.mAp;
     final children = [
       ...dashboardState.dashboardWidgets
           .where(
@@ -198,7 +199,9 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
         body: Align(
           alignment: Alignment.topCenter,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16).copyWith(bottom: 88),
+            padding: const EdgeInsets.all(
+              ClashArcDesignTokens.pagePadding,
+            ).copyWith(bottom: 96),
             child: Align(
               alignment: Alignment.topCenter,
               child: ConstrainedBox(

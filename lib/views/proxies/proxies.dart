@@ -1,11 +1,11 @@
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/common.dart';
-import 'package:fl_clash/models/state.dart';
-import 'package:fl_clash/providers/providers.dart';
-import 'package:fl_clash/views/proxies/list.dart';
-import 'package:fl_clash/views/proxies/providers.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/common.dart';
+import 'package:clash_arc/models/state.dart';
+import 'package:clash_arc/providers/providers.dart';
+import 'package:clash_arc/views/proxies/list.dart';
+import 'package:clash_arc/views/proxies/providers.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

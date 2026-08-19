@@ -1,10 +1,11 @@
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/providers/providers.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/views/proxies/common.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/models.dart';
+import 'package:clash_arc/providers/providers.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/views/proxies/common.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -130,6 +131,7 @@ class ProxyCard extends StatelessWidget {
             );
             return CommonCard(
               key: key,
+              radius: ClashArcDesignTokens.largeRadius,
               onPressed: () {
                 _changeProxy(ref);
               },

@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:defer_pointer/defer_pointer.dart';
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/widgets/activate_box.dart';
-import 'package:fl_clash/widgets/card.dart';
-import 'package:fl_clash/widgets/grid.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/widgets/activate_box.dart';
+import 'package:clash_arc/widgets/card.dart';
+import 'package:clash_arc/widgets/grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 

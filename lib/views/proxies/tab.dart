@@ -1,11 +1,12 @@
 import 'dart:math';
 
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/common.dart';
-import 'package:fl_clash/providers/providers.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/common.dart';
+import 'package:clash_arc/providers/providers.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -191,91 +192,110 @@ class ProxiesTabViewState extends ConsumerState<ProxiesTabView>
       );
     }
     _keyMap = {};
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        NotificationListener<ScrollMetricsNotification>(
-          onNotification: (scrollNotification) {
-            _hasMoreButtonNotifier.value =
-                scrollNotification.metrics.maxScrollExtent > 0;
-            return false;
-          },
-          child: ValueListenableBuilder(
-            valueListenable: _hasMoreButtonNotifier,
-            builder: (_, value, child) {
-              return Stack(
-                alignment: AlignmentDirectional.centerStart,
-                children: [
-                  TabBar(
-                    controller: _tabController,
-                    padding: EdgeInsets.only(
-                      left: 16,
-                      right: 16 + (value ? 16 : 0),
-                    ),
-                    dividerColor: Colors.transparent,
-                    isScrollable: true,
-                    tabAlignment: TabAlignment.start,
-                    tabs: [
-                      for (final group in groups)
-                        Tab(
-                          child: Builder(
-                            builder: (context) {
-                              return EmojiText(
-                                group.name,
-                                style: DefaultTextStyle.of(context).style,
-                              );
-                            },
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(
+          maxWidth: ClashArcDesignTokens.contentMaxWidth,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: context.colorScheme.surfaceContainerLow,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(ClashArcDesignTokens.largeRadius),
+                  ),
+                ),
+                child: NotificationListener<ScrollMetricsNotification>(
+                  onNotification: (scrollNotification) {
+                    _hasMoreButtonNotifier.value =
+                        scrollNotification.metrics.maxScrollExtent > 0;
+                    return false;
+                  },
+                  child: ValueListenableBuilder(
+                    valueListenable: _hasMoreButtonNotifier,
+                    builder: (_, value, child) {
+                      return Stack(
+                        alignment: AlignmentDirectional.centerStart,
+                        children: [
+                          TabBar(
+                            controller: _tabController,
+                            padding: EdgeInsets.only(
+                              left: 8,
+                              right: 8 + (value ? 24 : 0),
+                            ),
+                            dividerColor: Colors.transparent,
+                            isScrollable: true,
+                            tabAlignment: TabAlignment.start,
+                            tabs: [
+                              for (final group in groups)
+                                Tab(
+                                  child: Builder(
+                                    builder: (context) {
+                                      return EmojiText(
+                                        group.name,
+                                        style: DefaultTextStyle.of(
+                                          context,
+                                        ).style,
+                                      );
+                                    },
+                                  ),
+                                ),
+                            ],
+                          ),
+                          if (value) Positioned(right: 0, child: child!),
+                        ],
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: context.colorScheme.surfaceContainerLow,
+                        borderRadius: const BorderRadius.horizontal(
+                          right: Radius.circular(
+                            ClashArcDesignTokens.largeRadius,
                           ),
                         ),
-                    ],
+                      ),
+                      child: _buildMoreButton(),
+                    ),
                   ),
-                  if (value) Positioned(right: 0, child: child!),
-                ],
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                    context.colorScheme.surface.opacity10,
-                    context.colorScheme.surface,
-                  ],
-                  stops: const [0.0, 0.1],
                 ),
               ),
-              child: _buildMoreButton(),
             ),
-          ),
+            Expanded(
+              child: LayoutBuilder(
+                builder: (_, constraints) {
+                  final columns = utils.getProxiesColumns(
+                    max(constraints.maxWidth - 32, 0),
+                    proxiesLayout,
+                  );
+                  return TabBarView(
+                    controller: _tabController,
+                    children: [
+                      for (final group in groups)
+                        ProxyGroupView(
+                          key: _keyMap.updateCacheValue(
+                            group.name,
+                            () => GlobalObjectKey<_ProxyGroupViewState>(
+                              group.name,
+                            ),
+                          ),
+                          group: group,
+                          columns: columns,
+                          cardType: state.proxyCardType,
+                        ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
         ),
-        Expanded(
-          child: LayoutBuilder(
-            builder: (_, constraints) {
-              final columns = utils.getProxiesColumns(
-                max(constraints.maxWidth - 32, 0),
-                proxiesLayout,
-              );
-              return TabBarView(
-                controller: _tabController,
-                children: [
-                  for (final group in groups)
-                    ProxyGroupView(
-                      key: _keyMap.updateCacheValue(
-                        group.name,
-                        () => GlobalObjectKey<_ProxyGroupViewState>(group.name),
-                      ),
-                      group: group,
-                      columns: columns,
-                      cardType: state.proxyCardType,
-                    ),
-                ],
-              );
-            },
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
@@ -357,8 +377,8 @@ class _ProxyGroupViewState extends ConsumerState<ProxyGroupView> {
         ),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: widget.columns,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
+          mainAxisSpacing: 12,
+          crossAxisSpacing: 12,
           mainAxisExtent: getItemHeight(widget.cardType),
         ),
         itemCount: proxies.length,

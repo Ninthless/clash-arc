@@ -93,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "action_tun": MessageLookupByLibrary.simpleMessage("虚拟网卡"),
     "action_view": MessageLookupByLibrary.simpleMessage("显示/隐藏"),
     "add": MessageLookupByLibrary.simpleMessage("添加"),
+    "addEmoji": MessageLookupByLibrary.simpleMessage("为节点名称添加 Emoji"),
     "addProfile": MessageLookupByLibrary.simpleMessage("添加配置"),
     "addProxies": MessageLookupByLibrary.simpleMessage("添加代理"),
     "addProxyGroup": MessageLookupByLibrary.simpleMessage("添加策略组"),
@@ -183,6 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "contentNotEmpty": MessageLookupByLibrary.simpleMessage("内容不能为空"),
     "contentScheme": MessageLookupByLibrary.simpleMessage("内容主题"),
     "controlGlobalAddedRules": MessageLookupByLibrary.simpleMessage("控制全局附加规则"),
+    "convertAndImport": MessageLookupByLibrary.simpleMessage("转换并导入"),
     "copy": MessageLookupByLibrary.simpleMessage("复制"),
     "copyEnvVar": MessageLookupByLibrary.simpleMessage("复制环境变量"),
     "copyLink": MessageLookupByLibrary.simpleMessage("复制链接"),
@@ -252,10 +254,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "editSsid": MessageLookupByLibrary.simpleMessage("编辑SSID"),
     "emptyTip": m4,
     "en": MessageLookupByLibrary.simpleMessage("英语"),
+    "enableUdp": MessageLookupByLibrary.simpleMessage("启用 UDP"),
     "entries": MessageLookupByLibrary.simpleMessage("个条目"),
     "entriesCount": m5,
     "exclude": MessageLookupByLibrary.simpleMessage("从最近任务中隐藏"),
     "excludeDesc": MessageLookupByLibrary.simpleMessage("应用在后台时,从最近任务中隐藏应用"),
+    "excludeNodes": MessageLookupByLibrary.simpleMessage("排除节点（正则）"),
     "excludeProxyFilter": MessageLookupByLibrary.simpleMessage("排除节点过滤器"),
     "excludeSsids": MessageLookupByLibrary.simpleMessage("排除SSIDs"),
     "excludeSsidsDesc": MessageLookupByLibrary.simpleMessage(
@@ -321,6 +325,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "hours": MessageLookupByLibrary.simpleMessage("小时"),
     "hoursAgo": m10,
     "hoursCount": m11,
+    "httpsUrlRequired": MessageLookupByLibrary.simpleMessage("请输入有效的 HTTPS 地址"),
     "icon": MessageLookupByLibrary.simpleMessage("图片"),
     "iconRecords": MessageLookupByLibrary.simpleMessage("图标记录"),
     "iconStyle": MessageLookupByLibrary.simpleMessage("图标样式"),
@@ -338,6 +343,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "includeAllProxyProvidersTip": MessageLookupByLibrary.simpleMessage(
       "开启后将覆盖引入的代理集",
     ),
+    "includeNodes": MessageLookupByLibrary.simpleMessage("包含节点（正则）"),
     "infiniteTime": MessageLookupByLibrary.simpleMessage("长期有效"),
     "init": MessageLookupByLibrary.simpleMessage("初始化"),
     "inputCorrectHotkey": MessageLookupByLibrary.simpleMessage("请输入正确的快捷键"),
@@ -687,6 +693,39 @@ class MessageLookup extends MessageLookupByLibrary {
     "subRuleEmpty": MessageLookupByLibrary.simpleMessage("子规则为空"),
     "subRuleNotEmpty": MessageLookupByLibrary.simpleMessage("子规则不能为空"),
     "submit": MessageLookupByLibrary.simpleMessage("提交"),
+    "subscriptionConversion": MessageLookupByLibrary.simpleMessage("订阅转换"),
+    "subscriptionConversionDesc": MessageLookupByLibrary.simpleMessage(
+      "使用内置 Aethersailor 模板转换订阅",
+    ),
+    "subscriptionConversionPrivacy": MessageLookupByLibrary.simpleMessage(
+      "转换服务会收到你的订阅地址，其中可能包含访问令牌。请仅使用可信的转换服务。",
+    ),
+    "subscriptionConverterBackend": MessageLookupByLibrary.simpleMessage(
+      "转换服务地址",
+    ),
+    "subscriptionNameHint": MessageLookupByLibrary.simpleMessage("可选，转换配置名称"),
+    "subscriptionTemplate": MessageLookupByLibrary.simpleMessage(
+      "Aethersailor 模板",
+    ),
+    "subscriptionTemplateFull": MessageLookupByLibrary.simpleMessage("重度分流版"),
+    "subscriptionTemplateFullFallback": MessageLookupByLibrary.simpleMessage(
+      "重度分流版 · 故障转移",
+    ),
+    "subscriptionTemplateGfw": MessageLookupByLibrary.simpleMessage("极简 GFW 版"),
+    "subscriptionTemplateGfwFallback": MessageLookupByLibrary.simpleMessage(
+      "极简 GFW 版 · 故障转移",
+    ),
+    "subscriptionTemplateLite": MessageLookupByLibrary.simpleMessage("轻量版"),
+    "subscriptionTemplateLiteFallback": MessageLookupByLibrary.simpleMessage(
+      "轻量版 · 故障转移",
+    ),
+    "subscriptionTemplateStandard": MessageLookupByLibrary.simpleMessage("标准版"),
+    "subscriptionTemplateStandardFallback":
+        MessageLookupByLibrary.simpleMessage("标准版 · 故障转移"),
+    "subscriptionUrls": MessageLookupByLibrary.simpleMessage("订阅地址"),
+    "subscriptionUrlsDesc": MessageLookupByLibrary.simpleMessage(
+      "每行输入一个 HTTPS 地址",
+    ),
     "suspended": MessageLookupByLibrary.simpleMessage("挂起中..."),
     "sync": MessageLookupByLibrary.simpleMessage("同步"),
     "system": MessageLookupByLibrary.simpleMessage("系统"),

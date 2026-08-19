@@ -2,12 +2,13 @@
 
 import 'dart:math';
 
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/providers/config.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/models.dart';
+import 'package:clash_arc/providers/config.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/views/config/material_settings.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -40,16 +41,13 @@ class ThemeView extends StatelessWidget {
     final appLocalizations = context.appLocalizations;
     return BaseScaffold(
       title: appLocalizations.theme,
-      body: const CustomScrollView(
-        slivers: [
+      body: const MaterialSettingsList(
+        children: [
           _ThemeModeItem(),
-          SliverToBoxAdapter(child: SizedBox(height: 16)),
           _PrimaryColorItem(),
-          SliverToBoxAdapter(child: SizedBox(height: 16)),
-          _PrueBlackItem(),
-          SliverToBoxAdapter(child: SizedBox(height: 16)),
-          _TextScaleFactorItem(),
-          SliverToBoxAdapter(child: SizedBox(height: 32)),
+          MaterialSettingsSection(
+            children: [_PrueBlackItem(), _TextScaleFactorItem()],
+          ),
         ],
       ),
     );
@@ -106,7 +104,8 @@ class _ThemeModeItem extends ConsumerWidget {
         themeMode: ThemeMode.dark,
       ),
     ];
-    return SliverToBoxAdapter(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
       child: ItemCard(
         info: Info(
           label: appLocalizations.themeMode,
@@ -285,7 +284,8 @@ class _PrimaryColorItemState extends ConsumerState<_PrimaryColorItem> {
     final schemeVariant = vm4.c;
     final isEquals = vm4.d;
 
-    return SliverToBoxAdapter(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
       child: CommonPopScope(
         onPop: (context) {
           if (_removablePrimaryColor != null) {
@@ -427,23 +427,21 @@ class _PrueBlackItem extends ConsumerWidget {
     final prueBlack = ref.watch(
       themeSettingProvider.select((state) => state.pureBlack),
     );
-    return SliverToBoxAdapter(
-      child: ListItem.toggle(
-        leading: const Icon(Icons.contrast),
-        horizontalTitleGap: 12,
-        title: Text(
-          appLocalizations.pureBlackMode,
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-            color: context.colorScheme.onSurfaceVariant,
-          ),
+    return ListItem.toggle(
+      leading: const Icon(Icons.contrast),
+      horizontalTitleGap: 12,
+      title: Text(
+        appLocalizations.pureBlackMode,
+        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+          color: context.colorScheme.onSurfaceVariant,
         ),
-        value: prueBlack,
-        onChanged: (value) {
-          ref
-              .read(themeSettingProvider.notifier)
-              .update((state) => state.copyWith(pureBlack: value));
-        },
       ),
+      value: prueBlack,
+      onChanged: (value) {
+        ref
+            .read(themeSettingProvider.notifier)
+            .update((state) => state.copyWith(pureBlack: value));
+      },
     );
   }
 }
@@ -458,70 +456,68 @@ class _TextScaleFactorItem extends ConsumerWidget {
       themeSettingProvider.select((state) => state.textScale),
     );
     final String process = '${(textScale.scale * 100).round()}%';
-    return SliverToBoxAdapter(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: ListItem.toggle(
-              leading: const Icon(Icons.text_fields),
-              horizontalTitleGap: 12,
-              title: Text(
-                appLocalizations.textScale,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  color: context.colorScheme.onSurfaceVariant,
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: ListItem.toggle(
+            leading: const Icon(Icons.text_fields),
+            horizontalTitleGap: 12,
+            title: Text(
+              appLocalizations.textScale,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                color: context.colorScheme.onSurfaceVariant,
               ),
-              value: textScale.enable,
-              onChanged: (value) {
-                ref
-                    .read(themeSettingProvider.notifier)
-                    .update((state) => state.copyWith.textScale(enable: value));
-              },
             ),
+            value: textScale.enable,
+            onChanged: (value) {
+              ref
+                  .read(themeSettingProvider.notifier)
+                  .update((state) => state.copyWith.textScale(enable: value));
+            },
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
-              spacing: 32,
-              children: [
-                Expanded(
-                  child: DisabledMask(
-                    status: !textScale.enable,
-                    child: ActivateBox(
-                      active: textScale.enable,
-                      child: SliderTheme(
-                        data: SliderDefaultsM3(context),
-                        child: Slider(
-                          padding: EdgeInsets.zero,
-                          min: minTextScale,
-                          max: maxTextScale,
-                          value: textScale.scale,
-                          onChanged: (value) {
-                            ref
-                                .read(themeSettingProvider.notifier)
-                                .update(
-                                  (state) =>
-                                      state.copyWith.textScale(scale: value),
-                                );
-                          },
-                        ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            spacing: 32,
+            children: [
+              Expanded(
+                child: DisabledMask(
+                  status: !textScale.enable,
+                  child: ActivateBox(
+                    active: textScale.enable,
+                    child: SliderTheme(
+                      data: SliderDefaultsM3(context),
+                      child: Slider(
+                        padding: EdgeInsets.zero,
+                        min: minTextScale,
+                        max: maxTextScale,
+                        value: textScale.scale,
+                        onChanged: (value) {
+                          ref
+                              .read(themeSettingProvider.notifier)
+                              .update(
+                                (state) =>
+                                    state.copyWith.textScale(scale: value),
+                              );
+                        },
                       ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 4),
-                  child: Text(process, style: context.textTheme.titleMedium),
-                ),
-              ],
-            ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 4),
+                child: Text(process, style: context.textTheme.titleMedium),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

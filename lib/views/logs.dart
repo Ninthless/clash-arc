@@ -1,9 +1,10 @@
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/providers/providers.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/models.dart';
+import 'package:clash_arc/providers/providers.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:super_sliver_list/super_sliver_list.dart';
@@ -103,6 +104,35 @@ class _LogsViewState extends ConsumerState<LogsView> {
     }, duration: commonDuration);
   }
 
+  Widget _buildLevelFilter(
+    BuildContext context,
+    LogLevel level,
+    int count,
+    bool selected,
+  ) {
+    return FilterChip(
+      selected: selected,
+      onSelected: (_) {
+        if (!selected) {
+          context.commonScaffoldState?.addKeyword(level.name);
+        }
+      },
+      avatar: Icon(
+        switch (level) {
+          LogLevel.debug => Icons.bug_report_outlined,
+          LogLevel.info => Icons.info_outline,
+          LogLevel.warning => Icons.warning_amber_outlined,
+          LogLevel.error => Icons.error_outline,
+          LogLevel.silent => Icons.visibility_off_outlined,
+        },
+        color: selected
+            ? context.colorScheme.onSecondaryContainer
+            : level.color(context),
+      ),
+      label: Text('${level.name}  $count'),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final appLocalizations = context.appLocalizations;
@@ -140,11 +170,13 @@ class _LogsViewState extends ConsumerState<LogsView> {
               label: appLocalizations.nullTip(appLocalizations.logs),
             );
           }
+          final viewMode = ref.watch(viewModeProvider);
           final items = logs
               .map<Widget>(
                 (log) => LogItem(
                   key: Key(log.dateTime),
                   log: log,
+                  desktop: viewMode != ViewMode.mobile,
                   onClick: (value) {
                     context.commonScaffoldState?.addKeyword(value);
                   },
@@ -152,7 +184,7 @@ class _LogsViewState extends ConsumerState<LogsView> {
               )
               .separated(const Divider(height: 0))
               .toList();
-          return Align(
+          final list = Align(
             alignment: Alignment.topCenter,
             child: ScrollToEndBox(
               onCancelToEnd: () {
@@ -178,6 +210,60 @@ class _LogsViewState extends ConsumerState<LogsView> {
               ),
             ),
           );
+          if (viewMode == ViewMode.mobile) {
+            return list;
+          }
+          final counts = <LogLevel, int>{
+            for (final level in LogLevel.values)
+              level: _logs.where((log) => log.logLevel == level).length,
+          };
+          return Padding(
+            padding: ClashArcDesignTokens.pageInsets,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: ClipPath.shape(
+                    shape: ClashArcDesignTokens.largeShape,
+                    child: Material(
+                      color: context.colorScheme.surfaceContainerLow,
+                      child: list,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                SizedBox(
+                  width: 240,
+                  child: Material(
+                    color: context.colorScheme.surfaceContainerLow,
+                    shape: ClashArcDesignTokens.largeShape,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            appLocalizations.logs,
+                            style: context.textTheme.titleMedium,
+                          ),
+                          const SizedBox(height: 16),
+                          for (final level in LogLevel.values) ...[
+                            _buildLevelFilter(
+                              context,
+                              level,
+                              counts[level] ?? 0,
+                              state.keywords.contains(level.name),
+                            ),
+                            const SizedBox(height: 8),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
         },
       ),
     );
@@ -187,12 +273,18 @@ class _LogsViewState extends ConsumerState<LogsView> {
 class LogItem extends StatelessWidget {
   final Log log;
   final Function(String)? onClick;
+  final bool desktop;
 
-  const LogItem({super.key, required this.log, this.onClick});
+  const LogItem({
+    super.key,
+    required this.log,
+    this.onClick,
+    this.desktop = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ListItem(
+    final item = ListItem(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       onTap: () {},
       title: SelectableText(
@@ -223,6 +315,17 @@ class LogItem extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+    if (!desktop) {
+      return item;
+    }
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: Material(
+        color: context.colorScheme.surfaceContainer,
+        shape: ClashArcDesignTokens.mediumShape,
+        child: item,
       ),
     );
   }

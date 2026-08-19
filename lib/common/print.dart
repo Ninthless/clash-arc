@@ -1,7 +1,7 @@
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/providers/app.dart';
-import 'package:fl_clash/state.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/models.dart';
+import 'package:clash_arc/providers/app.dart';
+import 'package:clash_arc/state.dart';
 import 'package:flutter/material.dart';
 
 class CommonPrint {

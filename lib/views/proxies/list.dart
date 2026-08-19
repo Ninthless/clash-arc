@@ -1,11 +1,12 @@
 import 'dart:math';
 
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/providers/config.dart';
-import 'package:fl_clash/providers/state.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/models.dart';
+import 'package:clash_arc/providers/config.dart';
+import 'package:clash_arc/providers/state.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -50,11 +51,11 @@ class _ProxiesListViewState extends State<ProxiesListView> {
     required ProxyCardType cardType,
   }) {
     final offsets = <double>[];
-    final rowExtent = getItemHeight(cardType) + 8;
+    final rowExtent = getItemHeight(cardType) + 12;
     var currentOffset = 0.0;
     for (final group in groups) {
       offsets.add(currentOffset);
-      currentOffset += listHeaderHeight + 8;
+      currentOffset += listHeaderHeight + 12;
       if (currentUnfoldSet.contains(group.name)) {
         final rowCount = (group.all.length + columns - 1) ~/ columns;
         currentOffset += rowCount * rowExtent;
@@ -87,9 +88,9 @@ class _ProxiesListViewState extends State<ProxiesListView> {
           ),
         )
         .fill(columns, filler: (_) => const Flexible(child: SizedBox()))
-        .separated(const SizedBox(width: 8));
+        .separated(const SizedBox(width: 12));
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
       child: Row(children: children.toList()),
     );
   }
@@ -112,7 +113,7 @@ class _ProxiesListViewState extends State<ProxiesListView> {
           child: ColoredBox(
             color: context.colorScheme.surface,
             child: Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
               child: SizedBox(
                 height: listHeaderHeight,
                 child: ListHeader(
@@ -133,7 +134,7 @@ class _ProxiesListViewState extends State<ProxiesListView> {
         ),
         if (isExpand)
           SliverFixedExtentList(
-            itemExtent: getItemHeight(cardType) + 8,
+            itemExtent: getItemHeight(cardType) + 12,
             delegate: SliverChildBuilderDelegate(
               (_, index) => _buildProxyRow(
                 group: group,
@@ -269,28 +270,35 @@ class _ProxiesListViewState extends State<ProxiesListView> {
               cardType: state.proxyCardType,
             );
             containerHeight = max(constraints.maxHeight - 16, 0);
-            return CommonScrollBar(
-              controller: _controller,
-              thumbVisibility: true,
-              trackVisibility: true,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: ScrollConfiguration(
-                  behavior: HiddenBarScrollBehavior(),
-                  child: CustomScrollView(
-                    key: proxiesListStoreKey,
-                    controller: _controller,
-                    slivers: [
-                      for (final group in state.groups)
-                        _buildGroup(
-                          context,
-                          group: group,
-                          currentUnfoldSet: state.currentUnfoldSet,
-                          columns: columns,
-                          cardType: state.proxyCardType,
-                        ),
-                      const SliverToBoxAdapter(child: SizedBox(height: 16)),
-                    ],
+            return Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxWidth: ClashArcDesignTokens.contentMaxWidth,
+                ),
+                child: CommonScrollBar(
+                  controller: _controller,
+                  thumbVisibility: true,
+                  trackVisibility: true,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: ScrollConfiguration(
+                      behavior: HiddenBarScrollBehavior(),
+                      child: CustomScrollView(
+                        key: proxiesListStoreKey,
+                        controller: _controller,
+                        slivers: [
+                          for (final group in state.groups)
+                            _buildGroup(
+                              context,
+                              group: group,
+                              currentUnfoldSet: state.currentUnfoldSet,
+                              columns: columns,
+                              cardType: state.proxyCardType,
+                            ),
+                          const SliverToBoxAdapter(child: SizedBox(height: 96)),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -401,7 +409,7 @@ class _ListHeaderState extends State<ListHeader> {
       enterActionsOnRight: true,
       enterAnimated: widget.enterAnimated,
       key: widget.key,
-      radius: 18.ap,
+      radius: ClashArcDesignTokens.largeRadius,
       type: CommonCardType.filled,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

@@ -105,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "action_tun": MessageLookupByLibrary.simpleMessage("TUN"),
     "action_view": MessageLookupByLibrary.simpleMessage("Show/Hide"),
     "add": MessageLookupByLibrary.simpleMessage("Add"),
+    "addEmoji": MessageLookupByLibrary.simpleMessage("Add emoji to node names"),
     "addProfile": MessageLookupByLibrary.simpleMessage("Add Profile"),
     "addProxies": MessageLookupByLibrary.simpleMessage("Add proxies"),
     "addProxyGroup": MessageLookupByLibrary.simpleMessage("Add proxy group"),
@@ -263,6 +264,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "controlGlobalAddedRules": MessageLookupByLibrary.simpleMessage(
       "Control global added rules",
     ),
+    "convertAndImport": MessageLookupByLibrary.simpleMessage(
+      "Convert and import",
+    ),
     "copy": MessageLookupByLibrary.simpleMessage("Copy"),
     "copyEnvVar": MessageLookupByLibrary.simpleMessage(
       "Copying environment variables",
@@ -358,11 +362,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "editSsid": MessageLookupByLibrary.simpleMessage("Edit SSID"),
     "emptyTip": m4,
     "en": MessageLookupByLibrary.simpleMessage("English"),
+    "enableUdp": MessageLookupByLibrary.simpleMessage("Enable UDP"),
     "entries": MessageLookupByLibrary.simpleMessage(" entries"),
     "entriesCount": m5,
     "exclude": MessageLookupByLibrary.simpleMessage("Hidden from recent tasks"),
     "excludeDesc": MessageLookupByLibrary.simpleMessage(
       "When the app is in the background, the app is hidden from the recent task",
+    ),
+    "excludeNodes": MessageLookupByLibrary.simpleMessage(
+      "Exclude nodes (regex)",
     ),
     "excludeProxyFilter": MessageLookupByLibrary.simpleMessage(
       "Exclude proxy filter",
@@ -455,6 +463,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "hours": MessageLookupByLibrary.simpleMessage("hours"),
     "hoursAgo": m10,
     "hoursCount": m11,
+    "httpsUrlRequired": MessageLookupByLibrary.simpleMessage(
+      "Enter a valid HTTPS URL",
+    ),
     "icon": MessageLookupByLibrary.simpleMessage("Icon"),
     "iconRecords": MessageLookupByLibrary.simpleMessage("Icon records"),
     "iconStyle": MessageLookupByLibrary.simpleMessage("Icon style"),
@@ -477,6 +488,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "includeAllProxyProvidersTip": MessageLookupByLibrary.simpleMessage(
       "When enabled, it will override the imported proxy providers",
+    ),
+    "includeNodes": MessageLookupByLibrary.simpleMessage(
+      "Include nodes (regex)",
     ),
     "infiniteTime": MessageLookupByLibrary.simpleMessage("Long term effective"),
     "init": MessageLookupByLibrary.simpleMessage("Init"),
@@ -979,6 +993,51 @@ class MessageLookup extends MessageLookupByLibrary {
       "Sub rule cannot be empty",
     ),
     "submit": MessageLookupByLibrary.simpleMessage("Submit"),
+    "subscriptionConversion": MessageLookupByLibrary.simpleMessage(
+      "Subscription conversion",
+    ),
+    "subscriptionConversionDesc": MessageLookupByLibrary.simpleMessage(
+      "Convert subscriptions with built-in Aethersailor templates",
+    ),
+    "subscriptionConversionPrivacy": MessageLookupByLibrary.simpleMessage(
+      "The selected conversion backend receives your subscription URLs, which may contain access tokens. Use only a backend you trust.",
+    ),
+    "subscriptionConverterBackend": MessageLookupByLibrary.simpleMessage(
+      "Conversion backend",
+    ),
+    "subscriptionNameHint": MessageLookupByLibrary.simpleMessage(
+      "Optional name for this converted profile",
+    ),
+    "subscriptionTemplate": MessageLookupByLibrary.simpleMessage(
+      "Aethersailor template",
+    ),
+    "subscriptionTemplateFull": MessageLookupByLibrary.simpleMessage(
+      "Full routing",
+    ),
+    "subscriptionTemplateFullFallback": MessageLookupByLibrary.simpleMessage(
+      "Full routing · Fallback",
+    ),
+    "subscriptionTemplateGfw": MessageLookupByLibrary.simpleMessage(
+      "Minimal GFW",
+    ),
+    "subscriptionTemplateGfwFallback": MessageLookupByLibrary.simpleMessage(
+      "Minimal GFW · Fallback",
+    ),
+    "subscriptionTemplateLite": MessageLookupByLibrary.simpleMessage("Lite"),
+    "subscriptionTemplateLiteFallback": MessageLookupByLibrary.simpleMessage(
+      "Lite · Fallback",
+    ),
+    "subscriptionTemplateStandard": MessageLookupByLibrary.simpleMessage(
+      "Standard",
+    ),
+    "subscriptionTemplateStandardFallback":
+        MessageLookupByLibrary.simpleMessage("Standard · Fallback"),
+    "subscriptionUrls": MessageLookupByLibrary.simpleMessage(
+      "Subscription URLs",
+    ),
+    "subscriptionUrlsDesc": MessageLookupByLibrary.simpleMessage(
+      "Enter one HTTPS URL per line",
+    ),
     "suspended": MessageLookupByLibrary.simpleMessage("Suspended..."),
     "sync": MessageLookupByLibrary.simpleMessage("Sync"),
     "system": MessageLookupByLibrary.simpleMessage("System"),

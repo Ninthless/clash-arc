@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/core/controller.dart';
-import 'package:fl_clash/enum/enum.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/core/controller.dart';
+import 'package:clash_arc/enum/enum.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'clash_config.dart';
@@ -172,7 +172,7 @@ extension ProfileExtension on Profile {
     return _getFile();
   }
 
-  Future<Profile> update() async {
+  Future<Profile> update({bool preserveSubscriptionInfo = false}) async {
     final response = await request.getFileResponseForUrl(url);
     final disposition = response.headers.value('content-disposition');
     final userinfo = response.headers.value('subscription-userinfo');
@@ -181,7 +181,9 @@ extension ProfileExtension on Profile {
         utils.getFileNameForDisposition(disposition),
         id.toString(),
       ]),
-      subscriptionInfo: SubscriptionInfo.formHString(userinfo),
+      subscriptionInfo: preserveSubscriptionInfo && userinfo == null
+          ? subscriptionInfo
+          : SubscriptionInfo.formHString(userinfo),
     ).saveFile(response.data ?? Uint8List.fromList([]));
   }
 

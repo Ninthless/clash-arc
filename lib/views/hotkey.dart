@@ -1,12 +1,13 @@
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/providers/providers.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/widgets/card.dart';
-import 'package:fl_clash/widgets/dialog.dart';
-import 'package:fl_clash/widgets/list.dart';
-import 'package:fl_clash/widgets/scaffold.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/models.dart';
+import 'package:clash_arc/providers/providers.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/views/config/material_settings.dart';
+import 'package:clash_arc/widgets/card.dart';
+import 'package:clash_arc/widgets/dialog.dart';
+import 'package:clash_arc/widgets/list.dart';
+import 'package:clash_arc/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,7 +32,7 @@ class HotKeyView extends StatelessWidget {
     );
     var text = '';
     if (modifierLabels.isNotEmpty) {
-      text += "${modifierLabels.join(" ")}+";
+      text += '${modifierLabels.join(' ')}+';
     }
     text += PhysicalKeyboardKey(key).label;
     return text;
@@ -42,32 +43,36 @@ class HotKeyView extends StatelessWidget {
     final appLocalizations = context.appLocalizations;
     return BaseScaffold(
       title: appLocalizations.hotkeyManagement,
-      body: ListView.builder(
-        itemCount: HotAction.values.length,
-        itemBuilder: (_, index) {
-          final hotAction = HotAction.values[index];
-          return Consumer(
-            builder: (_, ref, _) {
-              final hotKeyAction = ref.watch(
-                getHotKeyActionProvider(hotAction),
-              );
-              return ListItem(
-                title: Text(IntlExt.actionMessage(hotAction.name)),
-                subtitle: Text(
-                  getSubtitle(context, hotKeyAction),
-                  style: context.textTheme.bodyMedium?.copyWith(
-                    color: context.colorScheme.primary,
-                  ),
+      body: MaterialSettingsList(
+        children: [
+          MaterialSettingsSection(
+            children: [
+              for (final hotAction in HotAction.values)
+                Consumer(
+                  builder: (_, ref, _) {
+                    final hotKeyAction = ref.watch(
+                      getHotKeyActionProvider(hotAction),
+                    );
+                    return ListItem(
+                      title: Text(IntlExt.actionMessage(hotAction.name)),
+                      subtitle: Text(
+                        getSubtitle(context, hotKeyAction),
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: context.colorScheme.primary,
+                        ),
+                      ),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () {
+                        globalState.showCommonDialog(
+                          child: HotKeyRecorder(hotKeyAction: hotKeyAction),
+                        );
+                      },
+                    );
+                  },
                 ),
-                onTap: () {
-                  globalState.showCommonDialog(
-                    child: HotKeyRecorder(hotKeyAction: hotKeyAction),
-                  );
-                },
-              );
-            },
-          );
-        },
+            ],
+          ),
+        ],
       ),
     );
   }

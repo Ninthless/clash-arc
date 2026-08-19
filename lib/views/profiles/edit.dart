@@ -2,14 +2,15 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/core/controller.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/pages/editor.dart';
-import 'package:fl_clash/providers/action.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/core/controller.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/models.dart';
+import 'package:clash_arc/pages/editor.dart';
+import 'package:clash_arc/providers/action.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileView extends StatefulWidget {
@@ -345,18 +346,35 @@ class _EditProfileViewState extends State<EditProfileView> {
             ),
             child: Form(
               key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: ListView.separated(
-                  padding: kMaterialListPadding.copyWith(bottom: 72),
-                  itemBuilder: (_, index) {
-                    return items[index];
-                  },
-                  separatorBuilder: (_, _) {
-                    return const SizedBox(height: 24);
-                  },
-                  itemCount: items.length,
-                ),
+              child: LayoutBuilder(
+                builder: (_, constraints) {
+                  final horizontalPadding =
+                      constraints.maxWidth <
+                          ClashArcDesignTokens.compactBreakpoint
+                      ? ClashArcDesignTokens.compactPagePadding
+                      : ClashArcDesignTokens.pagePadding;
+                  return Align(
+                    alignment: Alignment.topCenter,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 760),
+                      child: ListView.separated(
+                        padding: EdgeInsets.fromLTRB(
+                          horizontalPadding,
+                          16,
+                          horizontalPadding,
+                          88,
+                        ),
+                        itemBuilder: (_, index) {
+                          return items[index];
+                        },
+                        separatorBuilder: (_, _) {
+                          return const SizedBox(height: 20);
+                        },
+                        itemCount: items.length,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ),

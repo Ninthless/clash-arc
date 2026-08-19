@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/models/config.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/models/config.dart';
 import 'package:flutter/material.dart';
 import 'package:screen_retriever/screen_retriever.dart';
 import 'package:window_manager/window_manager.dart';
@@ -24,7 +24,7 @@ class Window {
     if (system.isWindows) {
       protocol.register('clash');
       protocol.register('clashmeta');
-      protocol.register('flclash');
+      protocol.register('clasharc');
     }
     await windowManager.ensureInitialized();
     final WindowOptions windowOptions = WindowOptions(

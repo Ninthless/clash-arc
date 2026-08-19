@@ -1,5 +1,5 @@
-display_name: FlClash
-package_name: FlClash
+display_name: Clash Arc
+package_name: Clash Arc
 maintainer:
   name: chen08209
   email: chen08209@gmail.com
@@ -16,12 +16,12 @@ dependencies:
   - libsecret-1-0
 
 keywords:
-  - FlClash
+  - Clash Arc
   - Clash
   - ClashMeta
   - Proxy
 
-generic_name: FlClash
+generic_name: Clash Arc
 
 categories:
   - Network

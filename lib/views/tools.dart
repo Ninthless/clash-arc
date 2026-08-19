@@ -1,17 +1,18 @@
 import 'dart:io';
 
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/l10n/l10n.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/providers/providers.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/views/about.dart';
-import 'package:fl_clash/views/access.dart';
-import 'package:fl_clash/views/application_setting.dart';
-import 'package:fl_clash/views/backup_and_restore.dart';
-import 'package:fl_clash/views/config/config.dart';
-import 'package:fl_clash/views/hotkey.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/l10n/l10n.dart';
+import 'package:clash_arc/models/models.dart';
+import 'package:clash_arc/providers/providers.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/views/about.dart';
+import 'package:clash_arc/views/access.dart';
+import 'package:clash_arc/views/application_setting.dart';
+import 'package:clash_arc/views/backup_and_restore.dart';
+import 'package:clash_arc/views/config/config.dart';
+import 'package:clash_arc/views/config/material_settings.dart';
+import 'package:clash_arc/views/hotkey.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -42,23 +43,10 @@ class _ToolViewState extends ConsumerState<ToolsView> {
     );
   }
 
-  Widget _buildNavigationMenu(List<NavigationItem> navigationItems) {
-    return Column(
-      children: [
-        for (final navigationItem in navigationItems) ...[
-          _buildNavigationMenuItem(navigationItem),
-          navigationItems.last != navigationItem
-              ? const Divider(height: 0)
-              : Container(),
-        ],
-      ],
-    );
-  }
-
-  List<Widget> _getOtherList(bool enableDeveloperMode) {
-    return generateSection(
+  Widget _getOtherList(bool enableDeveloperMode) {
+    return MaterialSettingsSection(
       title: context.appLocalizations.other,
-      items: [
+      children: [
         const _DisclaimerItem(),
         if (enableDeveloperMode) const _DeveloperItem(),
         const _InfoItem(),
@@ -66,10 +54,10 @@ class _ToolViewState extends ConsumerState<ToolsView> {
     );
   }
 
-  List<Widget> _getSettingList() {
-    return generateSection(
+  Widget _getSettingList() {
+    return MaterialSettingsSection(
       title: context.appLocalizations.settings,
-      items: [
+      children: [
         const _LocaleItem(),
         const _ThemeItem(),
         const _BackupItem(),
@@ -90,32 +78,28 @@ class _ToolViewState extends ConsumerState<ToolsView> {
         (state) => VM2(state.locale, state.developerMode),
       ),
     );
-    final items = [
+    final items = <Widget>[
       Consumer(
         builder: (_, ref, _) {
           final state = ref.watch(moreToolsSelectorStateProvider);
           if (state.navigationItems.isEmpty) {
-            return Container();
+            return const SizedBox();
           }
-          return Column(
+          return MaterialSettingsSection(
+            title: context.appLocalizations.more,
             children: [
-              ListHeader(title: context.appLocalizations.more),
-              _buildNavigationMenu(state.navigationItems),
+              for (final item in state.navigationItems)
+                _buildNavigationMenuItem(item),
             ],
           );
         },
       ),
-      ..._getSettingList(),
-      ..._getOtherList(vm2.b),
+      _getSettingList(),
+      _getOtherList(vm2.b),
     ];
     return CommonScaffold(
       title: context.appLocalizations.tools,
-      body: ListView.builder(
-        key: toolsStoreKey,
-        itemCount: items.length,
-        itemBuilder: (_, index) => items[index],
-        padding: const EdgeInsets.only(bottom: 20),
-      ),
+      body: MaterialSettingsList(key: toolsStoreKey, children: items),
     );
   }
 }

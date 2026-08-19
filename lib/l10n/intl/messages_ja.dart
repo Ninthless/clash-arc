@@ -95,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "action_tun": MessageLookupByLibrary.simpleMessage("TUN"),
     "action_view": MessageLookupByLibrary.simpleMessage("表示/非表示"),
     "add": MessageLookupByLibrary.simpleMessage("追加"),
+    "addEmoji": MessageLookupByLibrary.simpleMessage("ノード名に絵文字を追加"),
     "addProfile": MessageLookupByLibrary.simpleMessage("プロファイルを追加"),
     "addProxies": MessageLookupByLibrary.simpleMessage("プロキシを追加"),
     "addProxyGroup": MessageLookupByLibrary.simpleMessage("プロキシグループを追加"),
@@ -205,6 +206,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "controlGlobalAddedRules": MessageLookupByLibrary.simpleMessage(
       "グローバル追加ルールを制御",
     ),
+    "convertAndImport": MessageLookupByLibrary.simpleMessage("変換してインポート"),
     "copy": MessageLookupByLibrary.simpleMessage("コピー"),
     "copyEnvVar": MessageLookupByLibrary.simpleMessage("環境変数をコピー"),
     "copyLink": MessageLookupByLibrary.simpleMessage("リンクをコピー"),
@@ -280,12 +282,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "editSsid": MessageLookupByLibrary.simpleMessage("SSIDを編集"),
     "emptyTip": m4,
     "en": MessageLookupByLibrary.simpleMessage("英語"),
+    "enableUdp": MessageLookupByLibrary.simpleMessage("UDPを有効化"),
     "entries": MessageLookupByLibrary.simpleMessage(" エントリ"),
     "entriesCount": m5,
     "exclude": MessageLookupByLibrary.simpleMessage("最近のタスクから非表示"),
     "excludeDesc": MessageLookupByLibrary.simpleMessage(
       "アプリがバックグラウンド時に最近のタスクから非表示",
     ),
+    "excludeNodes": MessageLookupByLibrary.simpleMessage("除外するノード（正規表現）"),
     "excludeProxyFilter": MessageLookupByLibrary.simpleMessage("除外プロキシフィルター"),
     "excludeSsids": MessageLookupByLibrary.simpleMessage("Exclude SSIDs"),
     "excludeSsidsDesc": MessageLookupByLibrary.simpleMessage(
@@ -361,6 +365,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "hours": MessageLookupByLibrary.simpleMessage("時間"),
     "hoursAgo": m10,
     "hoursCount": m11,
+    "httpsUrlRequired": MessageLookupByLibrary.simpleMessage(
+      "有効なHTTPS URLを入力してください",
+    ),
     "icon": MessageLookupByLibrary.simpleMessage("アイコン"),
     "iconRecords": MessageLookupByLibrary.simpleMessage("アイコン履歴"),
     "iconStyle": MessageLookupByLibrary.simpleMessage("アイコンスタイル"),
@@ -382,6 +389,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "includeAllProxyProvidersTip": MessageLookupByLibrary.simpleMessage(
       "有効にすると、インポートされたプロキシプロバイダーを上書きします",
     ),
+    "includeNodes": MessageLookupByLibrary.simpleMessage("含めるノード（正規表現）"),
     "infiniteTime": MessageLookupByLibrary.simpleMessage("長期有効"),
     "init": MessageLookupByLibrary.simpleMessage("初期化"),
     "inputCorrectHotkey": MessageLookupByLibrary.simpleMessage("正しいホットキーを入力"),
@@ -795,6 +803,45 @@ class MessageLookup extends MessageLookupByLibrary {
     "subRuleEmpty": MessageLookupByLibrary.simpleMessage("サブルールが空です"),
     "subRuleNotEmpty": MessageLookupByLibrary.simpleMessage("サブルールは空にできません"),
     "submit": MessageLookupByLibrary.simpleMessage("送信"),
+    "subscriptionConversion": MessageLookupByLibrary.simpleMessage(
+      "サブスクリプション変換",
+    ),
+    "subscriptionConversionDesc": MessageLookupByLibrary.simpleMessage(
+      "内蔵のAethersailorテンプレートで変換",
+    ),
+    "subscriptionConversionPrivacy": MessageLookupByLibrary.simpleMessage(
+      "選択した変換サービスに購読URLが送信されます。アクセストークンが含まれる場合があるため、信頼できるサービスを使用してください。",
+    ),
+    "subscriptionConverterBackend": MessageLookupByLibrary.simpleMessage(
+      "変換サービスURL",
+    ),
+    "subscriptionNameHint": MessageLookupByLibrary.simpleMessage(
+      "任意の変換プロファイル名",
+    ),
+    "subscriptionTemplate": MessageLookupByLibrary.simpleMessage(
+      "Aethersailorテンプレート",
+    ),
+    "subscriptionTemplateFull": MessageLookupByLibrary.simpleMessage(
+      "完全ルーティング",
+    ),
+    "subscriptionTemplateFullFallback": MessageLookupByLibrary.simpleMessage(
+      "完全ルーティング・フォールバック",
+    ),
+    "subscriptionTemplateGfw": MessageLookupByLibrary.simpleMessage("最小GFW"),
+    "subscriptionTemplateGfwFallback": MessageLookupByLibrary.simpleMessage(
+      "最小GFW・フォールバック",
+    ),
+    "subscriptionTemplateLite": MessageLookupByLibrary.simpleMessage("軽量"),
+    "subscriptionTemplateLiteFallback": MessageLookupByLibrary.simpleMessage(
+      "軽量・フォールバック",
+    ),
+    "subscriptionTemplateStandard": MessageLookupByLibrary.simpleMessage("標準"),
+    "subscriptionTemplateStandardFallback":
+        MessageLookupByLibrary.simpleMessage("標準・フォールバック"),
+    "subscriptionUrls": MessageLookupByLibrary.simpleMessage("購読URL"),
+    "subscriptionUrlsDesc": MessageLookupByLibrary.simpleMessage(
+      "HTTPSのURLを1行に1つ入力",
+    ),
     "suspended": MessageLookupByLibrary.simpleMessage("一時停止中..."),
     "sync": MessageLookupByLibrary.simpleMessage("同期"),
     "system": MessageLookupByLibrary.simpleMessage("システム"),

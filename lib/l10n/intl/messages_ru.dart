@@ -104,6 +104,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "action_tun": MessageLookupByLibrary.simpleMessage("TUN"),
     "action_view": MessageLookupByLibrary.simpleMessage("Показать/Скрыть"),
     "add": MessageLookupByLibrary.simpleMessage("Добавить"),
+    "addEmoji": MessageLookupByLibrary.simpleMessage(
+      "Добавлять Emoji к именам узлов",
+    ),
     "addProfile": MessageLookupByLibrary.simpleMessage("Добавить профиль"),
     "addProxies": MessageLookupByLibrary.simpleMessage("Добавить прокси"),
     "addProxyGroup": MessageLookupByLibrary.simpleMessage(
@@ -270,6 +273,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "controlGlobalAddedRules": MessageLookupByLibrary.simpleMessage(
       "Управление глобальными добавленными правилами",
     ),
+    "convertAndImport": MessageLookupByLibrary.simpleMessage(
+      "Преобразовать и импортировать",
+    ),
     "copy": MessageLookupByLibrary.simpleMessage("Копировать"),
     "copyEnvVar": MessageLookupByLibrary.simpleMessage(
       "Копирование переменных окружения",
@@ -367,6 +373,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "editSsid": MessageLookupByLibrary.simpleMessage("Изменить SSID"),
     "emptyTip": m4,
     "en": MessageLookupByLibrary.simpleMessage("Английский"),
+    "enableUdp": MessageLookupByLibrary.simpleMessage("Включить UDP"),
     "entries": MessageLookupByLibrary.simpleMessage(" записей"),
     "entriesCount": m5,
     "exclude": MessageLookupByLibrary.simpleMessage(
@@ -374,6 +381,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "excludeDesc": MessageLookupByLibrary.simpleMessage(
       "Когда приложение находится в фоновом режиме, оно скрыто из последних задач",
+    ),
+    "excludeNodes": MessageLookupByLibrary.simpleMessage(
+      "Исключить узлы (регулярное выражение)",
     ),
     "excludeProxyFilter": MessageLookupByLibrary.simpleMessage(
       "Исключить фильтр прокси",
@@ -472,6 +482,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "hours": MessageLookupByLibrary.simpleMessage("часов"),
     "hoursAgo": m10,
     "hoursCount": m11,
+    "httpsUrlRequired": MessageLookupByLibrary.simpleMessage(
+      "Введите корректный HTTPS URL",
+    ),
     "icon": MessageLookupByLibrary.simpleMessage("Иконка"),
     "iconRecords": MessageLookupByLibrary.simpleMessage("История иконок"),
     "iconStyle": MessageLookupByLibrary.simpleMessage("Стиль иконки"),
@@ -494,6 +507,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "includeAllProxyProvidersTip": MessageLookupByLibrary.simpleMessage(
       "При включении это переопределит импортированных провайдеров прокси",
+    ),
+    "includeNodes": MessageLookupByLibrary.simpleMessage(
+      "Включить узлы (регулярное выражение)",
     ),
     "infiniteTime": MessageLookupByLibrary.simpleMessage(
       "Долгосрочное действие",
@@ -1030,6 +1046,49 @@ class MessageLookup extends MessageLookupByLibrary {
       "Подправило не может быть пустым",
     ),
     "submit": MessageLookupByLibrary.simpleMessage("Отправить"),
+    "subscriptionConversion": MessageLookupByLibrary.simpleMessage(
+      "Преобразование подписки",
+    ),
+    "subscriptionConversionDesc": MessageLookupByLibrary.simpleMessage(
+      "Преобразование подписки со встроенными шаблонами Aethersailor",
+    ),
+    "subscriptionConversionPrivacy": MessageLookupByLibrary.simpleMessage(
+      "Выбранный сервис получит URL подписки, в котором могут содержаться токены доступа. Используйте только доверенный сервис.",
+    ),
+    "subscriptionConverterBackend": MessageLookupByLibrary.simpleMessage(
+      "Адрес сервиса преобразования",
+    ),
+    "subscriptionNameHint": MessageLookupByLibrary.simpleMessage(
+      "Необязательное имя преобразованного профиля",
+    ),
+    "subscriptionTemplate": MessageLookupByLibrary.simpleMessage(
+      "Шаблон Aethersailor",
+    ),
+    "subscriptionTemplateFull": MessageLookupByLibrary.simpleMessage(
+      "Полная маршрутизация",
+    ),
+    "subscriptionTemplateFullFallback": MessageLookupByLibrary.simpleMessage(
+      "Полная маршрутизация · Fallback",
+    ),
+    "subscriptionTemplateGfw": MessageLookupByLibrary.simpleMessage(
+      "Минимальный GFW",
+    ),
+    "subscriptionTemplateGfwFallback": MessageLookupByLibrary.simpleMessage(
+      "Минимальный GFW · Fallback",
+    ),
+    "subscriptionTemplateLite": MessageLookupByLibrary.simpleMessage("Лёгкий"),
+    "subscriptionTemplateLiteFallback": MessageLookupByLibrary.simpleMessage(
+      "Лёгкий · Fallback",
+    ),
+    "subscriptionTemplateStandard": MessageLookupByLibrary.simpleMessage(
+      "Стандартный",
+    ),
+    "subscriptionTemplateStandardFallback":
+        MessageLookupByLibrary.simpleMessage("Стандартный · Fallback"),
+    "subscriptionUrls": MessageLookupByLibrary.simpleMessage("URL подписок"),
+    "subscriptionUrlsDesc": MessageLookupByLibrary.simpleMessage(
+      "Введите по одному HTTPS URL в каждой строке",
+    ),
     "suspended": MessageLookupByLibrary.simpleMessage("Приостановлено..."),
     "sync": MessageLookupByLibrary.simpleMessage("Синхронизация"),
     "system": MessageLookupByLibrary.simpleMessage("Система"),

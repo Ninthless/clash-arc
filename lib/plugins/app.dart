@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/models/models.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

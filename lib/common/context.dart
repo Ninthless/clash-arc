@@ -1,10 +1,10 @@
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/l10n/l10n.dart';
-import 'package:fl_clash/manager/manager.dart';
-import 'package:fl_clash/models/state.dart';
-import 'package:fl_clash/widgets/inherited.dart';
-import 'package:fl_clash/widgets/scaffold.dart';
-import 'package:fl_clash/widgets/sheet.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/l10n/l10n.dart';
+import 'package:clash_arc/manager/manager.dart';
+import 'package:clash_arc/models/state.dart';
+import 'package:clash_arc/widgets/inherited.dart';
+import 'package:clash_arc/widgets/scaffold.dart';
+import 'package:clash_arc/widgets/sheet.dart';
 import 'package:flutter/material.dart';
 
 extension BuildContextExtension on BuildContext {

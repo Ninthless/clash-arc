@@ -494,6 +494,221 @@ class AppLocalizations {
     );
   }
 
+  /// `Subscription conversion`
+  String get subscriptionConversion {
+    return Intl.message(
+      'Subscription conversion',
+      name: 'subscriptionConversion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Convert subscriptions with built-in Aethersailor templates`
+  String get subscriptionConversionDesc {
+    return Intl.message(
+      'Convert subscriptions with built-in Aethersailor templates',
+      name: 'subscriptionConversionDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The selected conversion backend receives your subscription URLs, which may contain access tokens. Use only a backend you trust.`
+  String get subscriptionConversionPrivacy {
+    return Intl.message(
+      'The selected conversion backend receives your subscription URLs, which may contain access tokens. Use only a backend you trust.',
+      name: 'subscriptionConversionPrivacy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Conversion backend`
+  String get subscriptionConverterBackend {
+    return Intl.message(
+      'Conversion backend',
+      name: 'subscriptionConverterBackend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Optional name for this converted profile`
+  String get subscriptionNameHint {
+    return Intl.message(
+      'Optional name for this converted profile',
+      name: 'subscriptionNameHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscription URLs`
+  String get subscriptionUrls {
+    return Intl.message(
+      'Subscription URLs',
+      name: 'subscriptionUrls',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter one HTTPS URL per line`
+  String get subscriptionUrlsDesc {
+    return Intl.message(
+      'Enter one HTTPS URL per line',
+      name: 'subscriptionUrlsDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a valid HTTPS URL`
+  String get httpsUrlRequired {
+    return Intl.message(
+      'Enter a valid HTTPS URL',
+      name: 'httpsUrlRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Aethersailor template`
+  String get subscriptionTemplate {
+    return Intl.message(
+      'Aethersailor template',
+      name: 'subscriptionTemplate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Standard`
+  String get subscriptionTemplateStandard {
+    return Intl.message(
+      'Standard',
+      name: 'subscriptionTemplateStandard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Standard · Fallback`
+  String get subscriptionTemplateStandardFallback {
+    return Intl.message(
+      'Standard · Fallback',
+      name: 'subscriptionTemplateStandardFallback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lite`
+  String get subscriptionTemplateLite {
+    return Intl.message(
+      'Lite',
+      name: 'subscriptionTemplateLite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lite · Fallback`
+  String get subscriptionTemplateLiteFallback {
+    return Intl.message(
+      'Lite · Fallback',
+      name: 'subscriptionTemplateLiteFallback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minimal GFW`
+  String get subscriptionTemplateGfw {
+    return Intl.message(
+      'Minimal GFW',
+      name: 'subscriptionTemplateGfw',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minimal GFW · Fallback`
+  String get subscriptionTemplateGfwFallback {
+    return Intl.message(
+      'Minimal GFW · Fallback',
+      name: 'subscriptionTemplateGfwFallback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full routing`
+  String get subscriptionTemplateFull {
+    return Intl.message(
+      'Full routing',
+      name: 'subscriptionTemplateFull',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full routing · Fallback`
+  String get subscriptionTemplateFullFallback {
+    return Intl.message(
+      'Full routing · Fallback',
+      name: 'subscriptionTemplateFullFallback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Include nodes (regex)`
+  String get includeNodes {
+    return Intl.message(
+      'Include nodes (regex)',
+      name: 'includeNodes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Exclude nodes (regex)`
+  String get excludeNodes {
+    return Intl.message(
+      'Exclude nodes (regex)',
+      name: 'excludeNodes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add emoji to node names`
+  String get addEmoji {
+    return Intl.message(
+      'Add emoji to node names',
+      name: 'addEmoji',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable UDP`
+  String get enableUdp {
+    return Intl.message('Enable UDP', name: 'enableUdp', desc: '', args: []);
+  }
+
+  /// `Convert and import`
+  String get convertAndImport {
+    return Intl.message(
+      'Convert and import',
+      name: 'convertAndImport',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `File`
   String get file {
     return Intl.message('File', name: 'file', desc: '', args: []);

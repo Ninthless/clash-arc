@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/common/theme.dart';
-import 'package:fl_clash/providers/action.dart';
-import 'package:fl_clash/providers/config.dart';
-import 'package:fl_clash/state.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/providers/action.dart';
+import 'package:clash_arc/providers/config.dart';
+import 'package:clash_arc/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -69,11 +69,7 @@ class ThemeManager extends ConsumerWidget {
       child: Theme(
         data: Theme.of(context).copyWith(
           floatingActionButtonTheme: Theme.of(context).floatingActionButtonTheme
-              .copyWith(
-                shape: const RoundedSuperellipseBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                ),
-              ),
+              .copyWith(shape: ClashArcDesignTokens.largeShape),
         ),
         child: LayoutBuilder(
           builder: (_, constraints) {

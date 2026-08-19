@@ -1,4 +1,4 @@
-import 'package:fl_clash/common/common.dart';
+import 'package:clash_arc/common/common.dart';
 import 'package:flutter/material.dart';
 
 import 'card.dart';

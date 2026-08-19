@@ -1,4 +1,4 @@
-import 'package:fl_clash/common/system.dart';
+import 'package:clash_arc/common/system.dart';
 import 'package:flutter/material.dart';
 
 class FloatLayout extends StatelessWidget {

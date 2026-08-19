@@ -1,6 +1,7 @@
 import 'dart:math';
 
-import 'package:fl_clash/providers/app.dart';
+import 'package:clash_arc/providers/app.dart';
+import 'package:clash_arc/common/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,6 +26,10 @@ class CommonDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final size = ref.watch(viewSizeProvider);
+    final isDesktop = size.width >= ClashArcDesignTokens.mediumBreakpoint;
+    final double maxWidth = isDesktop
+        ? min(size.width - 96, 640)
+        : min(size.width - 40, 480);
     return AlertDialog(
       title: Text(title),
       actions: actions,
@@ -32,10 +37,10 @@ class CommonDialog extends ConsumerWidget {
       backgroundColor: backgroundColor,
       content: Container(
         constraints: BoxConstraints(
-          maxHeight: min(size.height - 40, 500),
-          maxWidth: 300,
+          maxHeight: min(size.height - 40, 500.0),
+          maxWidth: maxWidth,
         ),
-        width: size.width - 40,
+        width: min(size.width - (isDesktop ? 96.0 : 40.0), maxWidth),
         child: !overrideScroll ? SingleChildScrollView(child: child) : child,
       ),
     );

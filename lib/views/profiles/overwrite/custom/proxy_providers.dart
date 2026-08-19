@@ -1,10 +1,10 @@
 import 'package:collection/collection.dart';
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart' hide FileInfo;
-import 'package:fl_clash/providers/providers.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/models.dart' hide FileInfo;
+import 'package:clash_arc/providers/providers.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_sheets/smooth_sheets.dart';
@@ -46,24 +46,18 @@ class _EditProxyProvidersViewState extends ConsumerState<EditProxyProvidersView>
   }
 
   void _handleRealRemove() {
-    debouncer.call(
-      'EditProxyProvidersViewState_handleRealRemove',
-      () {
-        if (!ref.context.mounted) {
-          return;
-        }
-        final dismissItems = ref.read(itemsProvider(key));
-        ref.read(proxyGroupProvider.notifier).update((state) {
-          final newProxyProviders = List<String>.from(state.use ?? []);
-          newProxyProviders.removeWhere(
-            (state) => dismissItems.contains(state),
-          );
-          return state.copyWith(use: newProxyProviders);
-        });
-        ref.read(itemsProvider(key).notifier).update((state) => <dynamic>{});
-      },
-      duration: const Duration(milliseconds: 450),
-    );
+    debouncer.call('EditProxyProvidersViewState_handleRealRemove', () {
+      if (!ref.context.mounted) {
+        return;
+      }
+      final dismissItems = ref.read(itemsProvider(key));
+      ref.read(proxyGroupProvider.notifier).update((state) {
+        final newProxyProviders = List<String>.from(state.use ?? []);
+        newProxyProviders.removeWhere((state) => dismissItems.contains(state));
+        return state.copyWith(use: newProxyProviders);
+      });
+      ref.read(itemsProvider(key).notifier).update((state) => <dynamic>{});
+    }, duration: const Duration(milliseconds: 450));
   }
 
   Widget _buildItem({
@@ -322,20 +316,16 @@ class _AddProxyProvidersViewState extends ConsumerState<_AddProxyProvidersView>
   }
 
   void _handleRealAdd() {
-    debouncer.call(
-      'AddProxyProvidersViewState_handleRealAdd',
-      () {
-        if (!ref.context.mounted) {
-          return;
-        }
-        final dismissItems = ref.read(itemsProvider(key));
-        ref.read(proxyGroupProvider.notifier).update((state) {
-          return state.copyWith(use: [...state.use ?? [], ...dismissItems]);
-        });
-        ref.read(itemsProvider(key).notifier).update((state) => <dynamic>{});
-      },
-      duration: const Duration(milliseconds: 350),
-    );
+    debouncer.call('AddProxyProvidersViewState_handleRealAdd', () {
+      if (!ref.context.mounted) {
+        return;
+      }
+      final dismissItems = ref.read(itemsProvider(key));
+      ref.read(proxyGroupProvider.notifier).update((state) {
+        return state.copyWith(use: [...state.use ?? [], ...dismissItems]);
+      });
+      ref.read(itemsProvider(key).notifier).update((state) => <dynamic>{});
+    }, duration: const Duration(milliseconds: 350));
   }
 
   Widget _buildItem({

@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:animations/animations.dart';
 import 'package:dynamic_color/dynamic_color.dart';
-import 'package:fl_clash/common/theme.dart';
-import 'package:fl_clash/widgets/dialog.dart';
-import 'package:fl_clash/widgets/list.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/widgets/dialog.dart';
+import 'package:clash_arc/widgets/list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

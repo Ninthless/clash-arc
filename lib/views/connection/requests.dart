@@ -1,8 +1,9 @@
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/providers/providers.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/models.dart';
+import 'package:clash_arc/providers/providers.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:super_sliver_list/super_sliver_list.dart';
@@ -22,6 +23,7 @@ class _RequestsViewState extends ConsumerState<RequestsView> {
   );
   List<TrackerInfo> _requests = [];
   late final ScrollController _scrollController;
+  String? _selectedRequestId;
 
   void _onSearch(String value) {
     _requestsStateNotifier.value = _requestsStateNotifier.value.copyWith(
@@ -81,6 +83,12 @@ class _RequestsViewState extends ConsumerState<RequestsView> {
     }, duration: commonDuration);
   }
 
+  void _selectRequest(TrackerInfo trackerInfo) {
+    setState(() {
+      _selectedRequestId = trackerInfo.id;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final appLocalizations = context.appLocalizations;
@@ -118,7 +126,14 @@ class _RequestsViewState extends ConsumerState<RequestsView> {
               label: appLocalizations.nullTip(appLocalizations.requests),
             );
           }
-          return Align(
+          final viewMode = ref.watch(viewModeProvider);
+          final selectedIndex = requests.indexWhere(
+            (trackerInfo) => trackerInfo.id == _selectedRequestId,
+          );
+          final selectedRequest = selectedIndex == -1
+              ? null
+              : requests[selectedIndex];
+          final list = Align(
             alignment: Alignment.topCenter,
             child: CommonScrollBar(
               trackVisibility: false,
@@ -137,12 +152,16 @@ class _RequestsViewState extends ConsumerState<RequestsView> {
                   physics: const NextClampingScrollPhysics(),
                   controller: _scrollController,
                   itemCount: requests.length,
-                  separatorBuilder: (_, _) => const Divider(height: 0),
+                  separatorBuilder: (_, _) => viewMode == ViewMode.mobile
+                      ? const Divider(height: 0)
+                      : const SizedBox(height: 2),
                   itemBuilder: (_, index) {
                     final trackerInfo = requests[index];
                     return TrackerInfoItem(
                       key: Key(trackerInfo.id),
                       trackerInfo: trackerInfo,
+                      isSelected: selectedRequest?.id == trackerInfo.id,
+                      onSelected: _selectRequest,
                       onClickKeyword: (value) {
                         context.commonScaffoldState?.addKeyword(value);
                       },
@@ -153,6 +172,43 @@ class _RequestsViewState extends ConsumerState<RequestsView> {
                   },
                 ),
               ),
+            ),
+          );
+          if (viewMode == ViewMode.mobile) {
+            return list;
+          }
+          return Padding(
+            padding: ClashArcDesignTokens.pageInsets,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(flex: 5, child: list),
+                const SizedBox(width: 16),
+                Expanded(
+                  flex: 4,
+                  child: ClipPath.shape(
+                    shape: ClashArcDesignTokens.largeShape,
+                    child: selectedRequest == null
+                        ? Material(
+                            color: context.colorScheme.surfaceContainerLow,
+                            child: Center(
+                              child: Icon(
+                                Icons.touch_app_outlined,
+                                size: 48,
+                                color: context
+                                    .colorScheme
+                                    .onSurfaceVariant
+                                    .opacity60,
+                              ),
+                            ),
+                          )
+                        : TrackerInfoDetailView(
+                            key: ValueKey(selectedRequest.id),
+                            trackerInfo: selectedRequest,
+                          ),
+                  ),
+                ),
+              ],
             ),
           );
         },

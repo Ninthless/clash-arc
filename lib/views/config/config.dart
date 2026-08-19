@@ -1,6 +1,7 @@
-import 'package:fl_clash/common/context.dart';
-import 'package:fl_clash/views/config/general.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/context.dart';
+import 'package:clash_arc/views/config/general.dart';
+import 'package:clash_arc/views/config/material_settings.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class ConfigView extends StatelessWidget {
@@ -10,7 +11,9 @@ class ConfigView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       title: context.appLocalizations.basicConfig,
-      body: generateListView(generalItems),
+      body: MaterialSettingsList(
+        children: [MaterialSettingsSection(children: generalItems)],
+      ),
     );
   }
 }

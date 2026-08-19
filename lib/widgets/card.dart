@@ -1,6 +1,7 @@
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/state.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -225,7 +226,9 @@ class CommonCard extends StatelessWidget {
               shape:
                   shape ??
                   RoundedSuperellipseBorder(
-                    borderRadius: BorderRadius.circular(radius ?? 14),
+                    borderRadius: BorderRadius.circular(
+                      radius ?? ClashArcDesignTokens.mediumRadius,
+                    ),
                   ),
               iconSize: 20,
               iconColor: _buildIconColor(context),
@@ -252,7 +255,9 @@ class CommonCard extends StatelessWidget {
               shape:
                   shape ??
                   RoundedSuperellipseBorder(
-                    borderRadius: BorderRadius.circular(radius ?? 14),
+                    borderRadius: BorderRadius.circular(
+                      radius ?? ClashArcDesignTokens.mediumRadius,
+                    ),
                   ),
               iconSize: 20,
               iconColor: _buildIconColor(context),

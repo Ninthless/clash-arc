@@ -1,6 +1,7 @@
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/providers/config.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/providers/config.dart';
+import 'package:clash_arc/views/config/material_settings.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -268,15 +269,8 @@ class ApplicationSettingView extends StatelessWidget {
     ];
     return BaseScaffold(
       title: context.appLocalizations.application,
-      body: ListView.separated(
-        itemBuilder: (_, index) {
-          final item = items[index];
-          return item;
-        },
-        separatorBuilder: (_, _) {
-          return const Divider(height: 0);
-        },
-        itemCount: items.length,
+      body: MaterialSettingsList(
+        children: [MaterialSettingsSection(children: items)],
       ),
     );
   }

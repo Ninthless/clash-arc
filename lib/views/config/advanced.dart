@@ -1,13 +1,14 @@
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/models/clash_config.dart';
-import 'package:fl_clash/providers/config.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/views/config/dns.dart';
-import 'package:fl_clash/views/config/network.dart';
-import 'package:fl_clash/views/config/on_demand.dart';
-import 'package:fl_clash/views/config/scripts.dart';
-import 'package:fl_clash/widgets/list.dart';
-import 'package:fl_clash/widgets/scaffold.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/models/clash_config.dart';
+import 'package:clash_arc/providers/config.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/views/config/dns.dart';
+import 'package:clash_arc/views/config/material_settings.dart';
+import 'package:clash_arc/views/config/network.dart';
+import 'package:clash_arc/views/config/on_demand.dart';
+import 'package:clash_arc/views/config/scripts.dart';
+import 'package:clash_arc/widgets/list.dart';
+import 'package:clash_arc/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -86,8 +87,8 @@ class AdvancedConfigView extends StatelessWidget {
     ];
     return BaseScaffold(
       title: appLocalizations.advancedConfig,
-      body: generateListView(
-        items.separated(const Divider(height: 0)).toList(),
+      body: MaterialSettingsList(
+        children: [MaterialSettingsSection(children: items)],
       ),
     );
   }

@@ -1,13 +1,14 @@
 import 'dart:io';
 
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/providers/action.dart';
-import 'package:fl_clash/providers/app.dart';
-import 'package:fl_clash/providers/config.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/models.dart';
+import 'package:clash_arc/providers/action.dart';
+import 'package:clash_arc/providers/app.dart';
+import 'package:clash_arc/providers/config.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/views/config/material_settings.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' hide context;
@@ -28,71 +29,73 @@ class ResourcesView extends StatelessWidget {
               (state) => VM2(state.geoAutoUpdate, state.geoUpdateInterval),
             ),
           );
-          return generateListView([
-            ...generateSection(
-              title: appLocalizations.geoOptions,
-              items: [
-                ListItem.toggle(
-                  title: Text(appLocalizations.geoAutoUpdate),
-                  value: vm2.a,
-                  onChanged: (value) {
-                    ref
-                        .read(patchClashConfigProvider.notifier)
-                        .update(
-                          (state) => state.copyWith(geoAutoUpdate: value),
-                        );
-                  },
-                ),
-                ListItem.input(
-                  title: Text(appLocalizations.geoAutoUpdateInterval),
-                  trailing: Text(
-                    appLocalizations.hoursCount(vm2.b),
-                    style: context.textTheme.bodyMedium?.toSoftBold,
+          return MaterialSettingsList(
+            children: [
+              MaterialSettingsSection(
+                title: appLocalizations.geoOptions,
+                children: [
+                  ListItem.toggle(
+                    title: Text(appLocalizations.geoAutoUpdate),
+                    value: vm2.a,
+                    onChanged: (value) {
+                      ref
+                          .read(patchClashConfigProvider.notifier)
+                          .update(
+                            (state) => state.copyWith(geoAutoUpdate: value),
+                          );
+                    },
                   ),
-                  suffixText: appLocalizations.hours,
-                  dialogTitle: appLocalizations.geoAutoUpdateInterval,
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return appLocalizations.emptyTip(
-                        appLocalizations.geoAutoUpdateInterval,
-                      );
-                    }
-                    final interval = int.tryParse(value);
-                    if (interval == null) {
-                      return appLocalizations.numberTip(
-                        appLocalizations.geoAutoUpdateInterval,
-                      );
-                    }
-                    if (interval <= 0) {
-                      return appLocalizations.geoAutoUpdateIntervalTip;
-                    }
-                    return null;
-                  },
-                  value: vm2.b.toString(),
-                  onChanged: (value) {
-                    final intValue = int.tryParse(value ?? '') ?? 0;
-                    if (intValue <= 0) {
-                      return;
-                    }
-                    ref
-                        .read(patchClashConfigProvider.notifier)
-                        .update(
-                          (state) =>
-                              state.copyWith(geoUpdateInterval: intValue),
+                  ListItem.input(
+                    title: Text(appLocalizations.geoAutoUpdateInterval),
+                    trailing: Text(
+                      appLocalizations.hoursCount(vm2.b),
+                      style: context.textTheme.bodyMedium?.toSoftBold,
+                    ),
+                    suffixText: appLocalizations.hours,
+                    dialogTitle: appLocalizations.geoAutoUpdateInterval,
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return appLocalizations.emptyTip(
+                          appLocalizations.geoAutoUpdateInterval,
                         );
-                  },
-                ),
-              ],
-            ),
-            ...generateSection(
-              title: appLocalizations.geoResources,
-              items: [
-                for (final geoResource in geoResources)
-                  _GeoResourceListItem(geoResource),
-              ],
-            ),
-          ]);
+                      }
+                      final interval = int.tryParse(value);
+                      if (interval == null) {
+                        return appLocalizations.numberTip(
+                          appLocalizations.geoAutoUpdateInterval,
+                        );
+                      }
+                      if (interval <= 0) {
+                        return appLocalizations.geoAutoUpdateIntervalTip;
+                      }
+                      return null;
+                    },
+                    value: vm2.b.toString(),
+                    onChanged: (value) {
+                      final intValue = int.tryParse(value ?? '') ?? 0;
+                      if (intValue <= 0) {
+                        return;
+                      }
+                      ref
+                          .read(patchClashConfigProvider.notifier)
+                          .update(
+                            (state) =>
+                                state.copyWith(geoUpdateInterval: intValue),
+                          );
+                    },
+                  ),
+                ],
+              ),
+              MaterialSettingsSection(
+                title: appLocalizations.geoResources,
+                children: [
+                  for (final geoResource in geoResources)
+                    _GeoResourceListItem(geoResource),
+                ],
+              ),
+            ],
+          );
         },
       ),
     );

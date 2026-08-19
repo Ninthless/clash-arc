@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:fl_clash/enum/enum.dart';
+import 'package:clash_arc/enum/enum.dart';
 
 enum CoreMethod {
   message,

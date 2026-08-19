@@ -1,4 +1,4 @@
-import 'package:fl_clash/common/common.dart';
+import 'package:clash_arc/common/common.dart';
 import 'package:flutter/material.dart';
 
 class CommonMinFilledButtonTheme extends StatelessWidget {
@@ -12,8 +12,8 @@ class CommonMinFilledButtonTheme extends StatelessWidget {
       data: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 8),
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           visualDensity: VisualDensity.compact,
+          minimumSize: const Size(64, 40),
         ),
       ),
       child: child,
@@ -33,7 +33,7 @@ class CommonMinIconButtonTheme extends StatelessWidget {
         style: IconButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           visualDensity: VisualDensity.compact,
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          minimumSize: const Size(40, 40),
           iconSize: 20.ap,
         ),
       ),

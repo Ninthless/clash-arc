@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:fl_clash/common/cache.dart';
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/database/database.dart';
-import 'package:fl_clash/plugins/app.dart';
+import 'package:clash_arc/common/cache.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/database/database.dart';
+import 'package:clash_arc/plugins/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_svg/svg.dart';

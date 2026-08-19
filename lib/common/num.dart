@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/common.dart';
-import 'package:fl_clash/state.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/common.dart';
+import 'package:clash_arc/state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

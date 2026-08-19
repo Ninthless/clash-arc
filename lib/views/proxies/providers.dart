@@ -1,14 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/core/core.dart';
-import 'package:fl_clash/models/common.dart';
-import 'package:fl_clash/models/core.dart';
-import 'package:fl_clash/providers/action.dart';
-import 'package:fl_clash/providers/app.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/core/core.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/common.dart';
+import 'package:clash_arc/models/core.dart';
+import 'package:clash_arc/providers/action.dart';
+import 'package:clash_arc/providers/app.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -51,19 +53,57 @@ class _ProvidersViewState extends ConsumerState<ProvidersView> {
     final ruleProviders = providers
         .where((item) => item.type == 'Rule')
         .map((item) => ProviderItem(provider: item));
-    final proxySection = generateSection(
-      title: appLocalizations.proxyProviders,
-      items: proxyProviders,
-    );
-    final ruleSection = generateSection(
-      title: appLocalizations.ruleProviders,
-      items: ruleProviders,
-    );
     return AdaptiveSheetScaffold(
       actions: [IconButtonData(icon: Icons.sync, onPressed: _updateProviders)],
-      body: generateListView([...proxySection, ...ruleSection]),
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 960),
+          child: ListView(
+            padding: ClashArcDesignTokens.pageInsets.copyWith(bottom: 32),
+            children: [
+              ..._buildSection(
+                context,
+                title: appLocalizations.proxyProviders,
+                items: proxyProviders,
+              ),
+              ..._buildSection(
+                context,
+                title: appLocalizations.ruleProviders,
+                items: ruleProviders,
+              ),
+            ],
+          ),
+        ),
+      ),
       title: appLocalizations.providers,
     );
+  }
+
+  List<Widget> _buildSection(
+    BuildContext context, {
+    required String title,
+    required Iterable<Widget> items,
+  }) {
+    final children = items.toList();
+    if (children.isEmpty) {
+      return const [];
+    }
+    return [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(4, 12, 4, 8),
+        child: Text(title, style: context.textTheme.titleMedium),
+      ),
+      for (final item in children)
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: CommonCard(
+            type: CommonCardType.filled,
+            radius: ClashArcDesignTokens.largeRadius,
+            child: item,
+          ),
+        ),
+    ];
   }
 }
 

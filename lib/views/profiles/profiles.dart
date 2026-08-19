@@ -1,10 +1,11 @@
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/providers/providers.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/views/profiles/overwrite/overwrite.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/models.dart';
+import 'package:clash_arc/providers/providers.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/views/profiles/overwrite/overwrite.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -108,7 +109,7 @@ class _ProfilesViewState extends State<ProfilesView> {
         final appLocalizations = context.appLocalizations;
         final isLoading = ref.watch(loadingProvider(LoadingTag.profiles));
         final state = ref.watch(profilesStateProvider);
-        final spacing = 14.mAp;
+        const spacing = 16.0;
         return CommonScaffold(
           isLoading: isLoading,
           title: appLocalizations.profiles,
@@ -121,41 +122,51 @@ class _ProfilesViewState extends State<ProfilesView> {
                 )
               : LayoutBuilder(
                   builder: (_, constraints) {
-                    const horizontalPadding = 16.0;
+                    final horizontalPadding =
+                        constraints.maxWidth <
+                            ClashArcDesignTokens.compactBreakpoint
+                        ? ClashArcDesignTokens.compactPagePadding
+                        : ClashArcDesignTokens.pagePadding;
                     final columns = utils.getProfilesColumns(
                       constraints.maxWidth - horizontalPadding * 2,
                     );
                     return Align(
                       alignment: Alignment.topCenter,
-                      child: SingleChildScrollView(
-                        key: profilesStoreKey,
-                        padding: const EdgeInsets.only(
-                          left: horizontalPadding,
-                          right: horizontalPadding,
-                          top: 16,
-                          bottom: 88,
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxWidth: ClashArcDesignTokens.contentMaxWidth,
                         ),
-                        child: Grid(
-                          mainAxisSpacing: spacing,
-                          crossAxisSpacing: spacing,
-                          crossAxisCount: columns,
-                          children: [
-                            for (int i = 0; i < state.profiles.length; i++)
-                              GridItem(
-                                child: ProfileItem(
-                                  profile: state.profiles[i],
-                                  groupValue: state.currentProfileId,
-                                  onChanged: (profileId) {
-                                    ref
-                                            .read(
-                                              currentProfileIdProvider.notifier,
-                                            )
-                                            .value =
-                                        profileId;
-                                  },
+                        child: SingleChildScrollView(
+                          key: profilesStoreKey,
+                          padding: EdgeInsets.only(
+                            left: horizontalPadding,
+                            right: horizontalPadding,
+                            top: 16,
+                            bottom: 96,
+                          ),
+                          child: Grid(
+                            mainAxisSpacing: spacing,
+                            crossAxisSpacing: spacing,
+                            crossAxisCount: columns,
+                            children: [
+                              for (final profile in state.profiles)
+                                GridItem(
+                                  child: ProfileItem(
+                                    profile: profile,
+                                    groupValue: state.currentProfileId,
+                                    onChanged: (profileId) {
+                                      ref
+                                              .read(
+                                                currentProfileIdProvider
+                                                    .notifier,
+                                              )
+                                              .value =
+                                          profileId;
+                                    },
+                                  ),
                                 ),
-                              ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -276,6 +287,7 @@ class ProfileItem extends StatelessWidget {
     return CommonCard(
       enterActionsOnRight: true,
       isSelected: profile.id == groupValue,
+      radius: ClashArcDesignTokens.largeRadius,
       onPressed: () {
         onChanged(profile.id);
       },

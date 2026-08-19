@@ -119,6 +119,37 @@ class ProfilesAction extends _$ProfilesAction {
     }
   }
 
+  Future<void> addConvertedProfile(ConvertedProfileInput input) async {
+    if (globalState.navigatorKey.currentState?.canPop() ?? false) {
+      globalState.navigatorKey.currentState?.popUntil((route) => route.isFirst);
+    }
+    ref.read(currentPageLabelProvider.notifier).value = PageLabel.profiles;
+    final profile = await globalState.loadingRun(
+      tag: LoadingTag.profiles,
+      () async {
+        final sources = getSubscriptionSourceUrls(input.url);
+        final metadata = await Future.wait(
+          sources.map(request.getSubscriptionMetadataForUrl),
+        );
+        final sourceLabel = metadata
+            .map((value) => value.label)
+            .whereType<String>()
+            .firstOrNull;
+        final label = input.label.takeFirstValid([sourceLabel]);
+        final subscriptionInfo = mergeSubscriptionInfo(
+          metadata.map((value) => value.info),
+        );
+        return Profile.normal(label: label, url: input.url)
+            .copyWith(subscriptionInfo: subscriptionInfo)
+            .update(preserveSubscriptionInfo: true);
+      },
+      title: currentAppLocalizations.addProfile,
+    );
+    if (profile != null) {
+      putProfile(profile);
+    }
+  }
+
   void setProfileAndAutoApply(Profile profile) {
     ref.read(profilesProvider.notifier).put(profile);
     if (profile.id == ref.read(currentProfileIdProvider)) {

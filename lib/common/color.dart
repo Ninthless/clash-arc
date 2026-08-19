@@ -116,7 +116,14 @@ extension ColorSchemeExtension on ColorScheme {
   ColorScheme toPureBlack(bool isPrueBlack) => isPrueBlack
       ? copyWith(
           surface: Colors.black,
-          surfaceContainer: surfaceContainer.darken(5),
+          surfaceDim: Colors.black,
+          surfaceBright: Colors.black,
+          surfaceContainerLowest: Colors.black,
+          surfaceContainerLow: Colors.black,
+          surfaceContainer: Colors.black,
+          surfaceContainerHigh: Colors.black,
+          surfaceContainerHighest: Colors.black,
+          surfaceTint: Colors.black,
         )
       : this;
 }

@@ -1,9 +1,11 @@
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/providers/config.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/models.dart';
+import 'package:clash_arc/providers/app.dart';
+import 'package:clash_arc/providers/config.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,6 +14,8 @@ class TrackerInfoItem extends ConsumerWidget {
   final Function(String)? onClickKeyword;
   final Widget? trailing;
   final String detailTitle;
+  final bool isSelected;
+  final ValueChanged<TrackerInfo>? onSelected;
 
   const TrackerInfoItem({
     super.key,
@@ -19,6 +23,8 @@ class TrackerInfoItem extends ConsumerWidget {
     this.onClickKeyword,
     this.trailing,
     required this.detailTitle,
+    this.isSelected = false,
+    this.onSelected,
   });
 
   static double get subTitleHeight {
@@ -35,6 +41,7 @@ class TrackerInfoItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final viewMode = ref.watch(viewModeProvider);
     final value = ref.watch(
       patchClashConfigProvider.select(
         (state) =>
@@ -107,9 +114,16 @@ class TrackerInfoItem extends ConsumerWidget {
             ),
           )
         : null;
-    return ListItem(
+    final item = ListItem(
+      color: isSelected
+          ? context.colorScheme.secondaryContainer
+          : Colors.transparent,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       onTap: () {
+        if (viewMode != ViewMode.mobile && onSelected != null) {
+          onSelected!(trackerInfo);
+          return;
+        }
         showExtend(
           context,
           builder: (_) {
@@ -136,6 +150,21 @@ class TrackerInfoItem extends ConsumerWidget {
           const SizedBox(height: 8),
           subTitle,
         ],
+      ),
+    );
+    if (viewMode == ViewMode.mobile) {
+      return item;
+    }
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: ClashArcDesignTokens.pagePadding,
+        vertical: 4,
+      ),
+      child: Material(
+        clipBehavior: Clip.antiAlias,
+        color: Colors.transparent,
+        shape: ClashArcDesignTokens.largeShape,
+        child: item,
       ),
     );
   }
@@ -311,13 +340,16 @@ class TrackerInfoDetailView extends StatelessWidget {
         ),
       _buildChains(context),
     ];
-    return SelectionArea(
-      child: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        itemCount: items.length,
-        itemBuilder: (_, index) {
-          return items[index];
-        },
+    return Material(
+      color: context.colorScheme.surfaceContainerLow,
+      child: SelectionArea(
+        child: ListView.builder(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          itemCount: items.length,
+          itemBuilder: (_, index) {
+            return items[index];
+          },
+        ),
       ),
     );
   }

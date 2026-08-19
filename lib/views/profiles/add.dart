@@ -1,9 +1,13 @@
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/pages/scan.dart';
-import 'package:fl_clash/providers/action.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/pages/scan.dart';
+import 'package:clash_arc/providers/action.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+
+import 'subscription_converter.dart';
 
 class AddProfileView extends StatelessWidget {
   final BuildContext context;
@@ -62,30 +66,80 @@ class AddProfileView extends StatelessWidget {
     }
   }
 
+  Future<void> _toSubscriptionConverter() async {
+    final input = await globalState.showCommonDialog<ConvertedProfileInput>(
+      child: const SubscriptionConverterDialog(),
+    );
+    if (input != null) {
+      globalState.container
+          .read(profilesActionProvider.notifier)
+          .addConvertedProfile(input);
+    }
+  }
+
   @override
   Widget build(context) {
     final appLocalizations = context.appLocalizations;
-    return ListView(
-      children: [
-        ListItem(
-          leading: const Icon(Icons.qr_code_sharp),
-          title: Text(appLocalizations.qrcode),
-          subtitle: Text(appLocalizations.qrcodeDesc),
-          onTap: _toScan,
-        ),
-        ListItem(
-          leading: const Icon(Icons.upload_file_sharp),
-          title: Text(appLocalizations.file),
-          subtitle: Text(appLocalizations.fileDesc),
-          onTap: _handleAddProfileFormFile,
-        ),
-        ListItem(
-          leading: const Icon(Icons.cloud_download_sharp),
-          title: Text(appLocalizations.url),
-          subtitle: Text(appLocalizations.urlDesc),
-          onTap: _toAdd,
-        ),
-      ],
+    final items = [
+      (
+        icon: Icons.qr_code_sharp,
+        title: appLocalizations.qrcode,
+        subtitle: appLocalizations.qrcodeDesc,
+        onTap: _toScan,
+      ),
+      (
+        icon: Icons.upload_file_sharp,
+        title: appLocalizations.file,
+        subtitle: appLocalizations.fileDesc,
+        onTap: _handleAddProfileFormFile,
+      ),
+      (
+        icon: Icons.cloud_download_sharp,
+        title: appLocalizations.url,
+        subtitle: appLocalizations.urlDesc,
+        onTap: _toAdd,
+      ),
+      (
+        icon: Icons.tune,
+        title: appLocalizations.subscriptionConversion,
+        subtitle: appLocalizations.subscriptionConversionDesc,
+        onTap: _toSubscriptionConverter,
+      ),
+    ];
+    return LayoutBuilder(
+      builder: (_, constraints) {
+        final columns =
+            constraints.maxWidth >= ClashArcDesignTokens.mediumBreakpoint
+            ? 3
+            : constraints.maxWidth >= ClashArcDesignTokens.compactBreakpoint
+            ? 2
+            : 1;
+        return GridView.builder(
+          padding: constraints.maxWidth < ClashArcDesignTokens.compactBreakpoint
+              ? ClashArcDesignTokens.compactPageInsets
+              : ClashArcDesignTokens.pageInsets,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: columns,
+            mainAxisSpacing: 12,
+            crossAxisSpacing: 12,
+            mainAxisExtent: 112,
+          ),
+          itemCount: items.length,
+          itemBuilder: (_, index) {
+            final item = items[index];
+            return CommonCard(
+              type: CommonCardType.filled,
+              radius: ClashArcDesignTokens.largeRadius,
+              onPressed: item.onTap,
+              child: ListItem(
+                leading: Icon(item.icon),
+                title: Text(item.title),
+                subtitle: Text(item.subtitle),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

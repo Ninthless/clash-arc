@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:fl_clash/common/common.dart';
+import 'package:clash_arc/common/common.dart';
 
 extension FutureExt<T> on Future<T> {
   Future<T> withTimeout({

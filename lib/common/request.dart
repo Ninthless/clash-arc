@@ -4,10 +4,10 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/state.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/models.dart';
+import 'package:clash_arc/state.dart';
 import 'package:flutter/cupertino.dart';
 
 class Request {
@@ -23,7 +23,7 @@ class Request {
         final client = HttpClient();
         client.findProxy = (Uri uri) {
           client.userAgent = globalState.ua;
-          return FlClashHttpOverrides.handleFindProxy(uri);
+          return ClashArcHttpOverrides.handleFindProxy(uri);
         };
         return client;
       },
@@ -56,6 +56,45 @@ class Request {
       options: Options(responseType: ResponseType.plain),
     );
     return response;
+  }
+
+  Future<({String? label, SubscriptionInfo? info})>
+  getSubscriptionMetadataForUrl(String url) async {
+    Response<dynamic> response;
+    try {
+      response = await _clashDio.head<void>(
+        url,
+        options: Options(receiveTimeout: httpTimeoutDuration),
+      );
+      if (response.headers.value('subscription-userinfo') == null &&
+          response.headers.value('content-disposition') == null) {
+        response = await _clashDio.get<Uint8List>(
+          url,
+          options: Options(
+            responseType: ResponseType.bytes,
+            receiveTimeout: httpTimeoutDuration,
+          ),
+        );
+      }
+    } catch (_) {
+      response = await _clashDio.get<Uint8List>(
+        url,
+        options: Options(
+          responseType: ResponseType.bytes,
+          receiveTimeout: httpTimeoutDuration,
+        ),
+      );
+    }
+    final disposition = response.headers.value('content-disposition');
+    final userinfo = response.headers.value('subscription-userinfo');
+    return (
+      label: disposition == null
+          ? null
+          : utils.getFileNameForDisposition(disposition),
+      info: userinfo == null || userinfo.trim().isEmpty
+          ? null
+          : SubscriptionInfo.formHString(userinfo),
+    );
   }
 
   Future<MemoryImage?> getImage(String url) async {

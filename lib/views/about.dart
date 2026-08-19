@@ -1,11 +1,13 @@
 import 'dart:async';
 
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/l10n/l10n.dart';
-import 'package:fl_clash/providers/providers.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/widgets/list.dart';
-import 'package:fl_clash/widgets/scaffold.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/l10n/l10n.dart';
+import 'package:clash_arc/providers/providers.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/views/config/material_settings.dart';
+import 'package:clash_arc/widgets/list.dart';
+import 'package:clash_arc/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -35,12 +37,11 @@ class AboutView extends StatelessWidget {
         .checkUpdateResultHandle(data: data, isUser: true);
   }
 
-  List<Widget> _buildMoreSection(BuildContext context) {
+  Widget _buildMoreSection(BuildContext context) {
     final appLocalizations = context.appLocalizations;
-    return generateSection(
-      separated: false,
+    return MaterialSettingsSection(
       title: appLocalizations.more,
-      items: [
+      children: [
         ListItem(
           title: Text(appLocalizations.checkUpdate),
           onTap: () {
@@ -50,7 +51,7 @@ class AboutView extends StatelessWidget {
         ListItem(
           title: const Text('Telegram'),
           onTap: () {
-            globalState.openUrl('https://t.me/FlClash');
+            globalState.openUrl('https://t.me/Clash Arc');
           },
           trailing: const Icon(Icons.launch),
         ),
@@ -65,7 +66,7 @@ class AboutView extends StatelessWidget {
           title: Text(appLocalizations.core),
           onTap: () {
             globalState.openUrl(
-              'https://github.com/chen08209/Clash.Meta/tree/FlClash',
+              'https://github.com/chen08209/Clash.Meta/tree/Clash Arc',
             );
           },
           trailing: const Icon(Icons.launch),
@@ -74,7 +75,7 @@ class AboutView extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildContributorsSection(AppLocalizations appLocalizations) {
+  Widget _buildContributorsSection(AppLocalizations appLocalizations) {
     const contributors = [
       Contributor(
         avatar: 'assets/images/avatar/june2.jpg',
@@ -87,10 +88,9 @@ class AboutView extends StatelessWidget {
         link: 'https://t.me/xrcm6868',
       ),
     ];
-    return generateSection(
-      separated: false,
+    return MaterialSettingsSection(
       title: appLocalizations.otherContributors,
-      items: [
+      children: [
         ListItem(
           title: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -110,70 +110,77 @@ class AboutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = context.appLocalizations;
-    final items = [
-      ListTile(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Consumer(
-              builder: (_, ref, _) {
-                return _DeveloperModeDetector(
-                  child: Wrap(
-                    spacing: 16,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Image.asset(
-                          'assets/images/icon.png',
-                          width: 64,
-                          height: 64,
+    final items = <Widget>[
+      Card(
+        margin: EdgeInsets.zero,
+        elevation: 0,
+        color: context.colorScheme.surfaceContainerLow,
+        surfaceTintColor: Colors.transparent,
+        shape: ClashArcDesignTokens.largeShape,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Consumer(
+                builder: (_, ref, _) {
+                  return _DeveloperModeDetector(
+                    child: Wrap(
+                      spacing: 16,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Image.asset(
+                            'assets/images/icon.png',
+                            width: 64,
+                            height: 64,
+                          ),
                         ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            appName,
-                            style: Theme.of(context).textTheme.headlineSmall,
-                          ),
-                          Text(
-                            globalState.packageInfo.version,
-                            style: Theme.of(context).textTheme.labelLarge,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  onEnterDeveloperMode: () {
-                    ref
-                        .read(appSettingProvider.notifier)
-                        .update((state) => state.copyWith(developerMode: true));
-                    context.showNotifier(
-                      appLocalizations.developerModeEnableTip,
-                    );
-                  },
-                );
-              },
-            ),
-            const SizedBox(height: 24),
-            Text(
-              appLocalizations.desc,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ],
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              appName,
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                            Text(
+                              globalState.packageInfo.version,
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    onEnterDeveloperMode: () {
+                      ref
+                          .read(appSettingProvider.notifier)
+                          .update(
+                            (state) => state.copyWith(developerMode: true),
+                          );
+                      context.showNotifier(
+                        appLocalizations.developerModeEnableTip,
+                      );
+                    },
+                  );
+                },
+              ),
+              const SizedBox(height: 24),
+              Text(
+                appLocalizations.desc,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      ..._buildContributorsSection(appLocalizations),
-      ..._buildMoreSection(context),
+      const SizedBox(height: 20),
+      _buildContributorsSection(appLocalizations),
+      _buildMoreSection(context),
     ];
     return BaseScaffold(
       title: appLocalizations.about,
-      body: Padding(
-        padding: kMaterialListPadding.copyWith(top: 16, bottom: 16),
-        child: generateListView(items),
-      ),
+      body: MaterialSettingsList(children: items),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:animations/animations.dart';
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/providers/app.dart';
-import 'package:fl_clash/state.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/providers/app.dart';
+import 'package:clash_arc/state.dart';
 import 'package:flutter/material.dart';
 
 class BaseNavigator {
