@@ -1,11 +1,12 @@
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/common/theme.dart';
-import 'package:fl_clash/l10n/l10n.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/views/connection/connections.dart';
-import 'package:fl_clash/views/connection/item.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/l10n/l10n.dart';
+import 'package:clash_arc/models/models.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/providers/providers.dart';
+import 'package:clash_arc/views/connection/connections.dart';
+import 'package:clash_arc/views/connection/item.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -45,13 +46,15 @@ void main() {
     WidgetTester tester, {
     required Future<List<TrackerInfo>> Function() connectionsReader,
     bool isPageActive = true,
+    Size size = const Size(600, 800),
   }) async {
-    tester.view.physicalSize = const Size(600, 800);
+    tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
     tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    container.read(viewSizeProvider.notifier).value = size;
 
     await tester.pumpWidget(
       UncontrolledProviderScope(
@@ -90,6 +93,47 @@ void main() {
     );
 
     expect(find.text('tcp://host-99.com:443'), findsOneWidget);
+    expect(tester.takeException(), null);
+
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
+
+  testWidgets('ConnectionsView shows inline details on desktop', (
+    tester,
+  ) async {
+    final connections = buildConnections(2);
+
+    await pumpConnections(
+      tester,
+      connectionsReader: () async => connections,
+      size: const Size(1200, 800),
+    );
+    await tester.pump();
+
+    expect(find.byType(TrackerInfoDetailView), findsNothing);
+
+    await tester.tap(find.text('tcp://host-0.com:443'));
+    await tester.pump();
+
+    expect(find.byType(TrackerInfoDetailView), findsOneWidget);
+    expect(find.text('MATCH'), findsOneWidget);
+    expect(find.byType(AdaptiveSheetScaffold), findsNothing);
+    expect(tester.takeException(), null);
+
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
+
+  testWidgets('ConnectionsView keeps sheet details on mobile', (tester) async {
+    final connections = buildConnections(1);
+
+    await pumpConnections(tester, connectionsReader: () async => connections);
+    await tester.pump();
+
+    await tester.tap(find.text('tcp://host-0.com:443'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+
+    expect(find.byType(AdaptiveSheetScaffold), findsOneWidget);
     expect(tester.takeException(), null);
 
     await tester.pumpWidget(const SizedBox.shrink());

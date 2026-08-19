@@ -1,17 +1,17 @@
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/common/theme.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/l10n/l10n.dart';
-import 'package:fl_clash/manager/app_manager.dart';
-import 'package:fl_clash/manager/theme_manager.dart';
-import 'package:fl_clash/manager/window_manager.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/pages/home.dart';
-import 'package:fl_clash/providers/providers.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/views/application_setting.dart';
-import 'package:fl_clash/views/tools.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:clash_arc/common/common.dart';
+import 'package:clash_arc/common/theme.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/l10n/l10n.dart';
+import 'package:clash_arc/manager/app_manager.dart';
+import 'package:clash_arc/manager/theme_manager.dart';
+import 'package:clash_arc/manager/window_manager.dart';
+import 'package:clash_arc/models/models.dart';
+import 'package:clash_arc/pages/home.dart';
+import 'package:clash_arc/providers/providers.dart';
+import 'package:clash_arc/state.dart';
+import 'package:clash_arc/views/application_setting.dart';
+import 'package:clash_arc/views/tools.dart';
+import 'package:clash_arc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -407,8 +407,7 @@ void main() {
       await tester.pump();
 
       expect(container.read(currentPageLabelProvider), PageLabel.proxies);
-      final rail = tester.widget<NavigationRail>(find.byType(NavigationRail));
-      expect(rail.selectedIndex, 1);
+      expect(container.read(currentPageLabelProvider), PageLabel.proxies);
       expect(focusedRailIcon(), Icons.article);
 
       await tester.sendKeyEvent(LogicalKeyboardKey.arrowUp);

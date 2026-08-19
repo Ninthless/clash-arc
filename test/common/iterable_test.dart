@@ -1,4 +1,4 @@
-import 'package:fl_clash/common/iterable.dart';
+import 'package:clash_arc/common/iterable.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -1,6 +1,6 @@
-import 'package:fl_clash/common/compute.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart';
+import 'package:clash_arc/common/compute.dart';
+import 'package:clash_arc/enum/enum.dart';
+import 'package:clash_arc/models/models.dart';
 import 'package:test/test.dart';
 
 void main() {

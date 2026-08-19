@@ -1,5 +1,5 @@
-import 'package:fl_clash/widgets/grid.dart';
-import 'package:fl_clash/widgets/super_grid.dart';
+import 'package:clash_arc/widgets/grid.dart';
+import 'package:clash_arc/widgets/super_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

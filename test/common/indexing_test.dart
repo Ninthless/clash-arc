@@ -1,4 +1,4 @@
-import 'package:fl_clash/common/indexing.dart';
+import 'package:clash_arc/common/indexing.dart';
 import 'package:test/test.dart';
 
 void main() {

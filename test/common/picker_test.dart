@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:fl_clash/common/picker.dart';
+import 'package:clash_arc/common/picker.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('PlatformFileExt.readBytes', () {
     test('loads bytes from the picked file path', () async {
       final directory = await Directory.systemTemp.createTemp(
-        'fl_clash_picker_test_',
+        'clash_arc_picker_test_',
       );
       addTearDown(() => directory.delete(recursive: true));
 

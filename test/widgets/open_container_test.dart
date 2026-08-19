@@ -1,4 +1,4 @@
-import 'package:fl_clash/widgets/open_container.dart';
+import 'package:clash_arc/widgets/open_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

@@ -4,9 +4,9 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
-import 'package:fl_clash/common/constant.dart';
-import 'package:fl_clash/core/desktop/helper_client.dart';
-import 'package:fl_clash/core/desktop/model.dart';
+import 'package:clash_arc/common/constant.dart';
+import 'package:clash_arc/core/desktop/helper_client.dart';
+import 'package:clash_arc/core/desktop/model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'fakes.dart';
@@ -22,7 +22,7 @@ void main() {
       final adapter = _ResponseAdapter((options) {
         expect(options.path, endsWith('/start'));
         expect(options.data, {
-          'address': r'\\.\pipe\FlClashCore_abc',
+          'address': r'\\.\pipe\Clash ArcCore_abc',
           'sessionId': _sessionId,
         });
         return _jsonResponse({'sessionId': _sessionId, 'pid': 6456});
@@ -30,7 +30,7 @@ void main() {
       final client = _client(adapter);
 
       final response = await client.start(
-        address: r'\\.\pipe\FlClashCore_abc',
+        address: r'\\.\pipe\Clash ArcCore_abc',
         sessionId: _sessionId,
       );
 
@@ -237,7 +237,7 @@ void main() {
     final adapter = _ResponseAdapter((options) {
       expect(options.queryParameters, {'coreSha256': _coreSha256});
       return ResponseBody.fromString(
-        r'C:\Program Files\FlClash\FlClashHelperService.exe',
+        r'C:\Program Files\Clash Arc\Clash ArcHelperService.exe',
         200,
         headers: {
           helperProtocolVersionHeader: [helperProtocolVersion],
@@ -248,7 +248,7 @@ void main() {
     final client = _client(
       adapter,
       expectedHelperPath: () =>
-          r'C:\Program Files\FlClash\FlClashHelperService.exe',
+          r'C:\Program Files\Clash Arc\Clash ArcHelperService.exe',
     );
 
     expect(await client.readiness(), WindowsHelperReadiness.ready);

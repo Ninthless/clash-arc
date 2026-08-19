@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:fl_clash/common/dav_client.dart';
-import 'package:fl_clash/models/models.dart';
+import 'package:clash_arc/common/dav_client.dart';
+import 'package:clash_arc/models/models.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class _FakeDAVClient extends DAVClient {
