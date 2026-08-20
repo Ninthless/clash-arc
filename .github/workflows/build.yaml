@@ -108,6 +108,7 @@ jobs:
     needs: [ test, windows-helper-test ]
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         include:
           - platform: android
@@ -126,9 +127,6 @@ jobs:
             arch: arm64
           - platform: windows
             os: windows-11-arm
-            arch: arm64
-          - platform: linux
-            os: ubuntu-24.04-arm
             arch: arm64
 
     steps:
