@@ -147,9 +147,15 @@ jobs:
       - name: Setup Android Signing
         if: startsWith(matrix.platform,'android')
         run: |
-          printf '%s' '${{ secrets.KEYSTORE }}' | base64 --decode > android/app/keystore.jks
+          if [ -n '${{ secrets.KEYSTORE }}' ]; then
+            printf '%s' '${{ secrets.KEYSTORE }}' | base64 --decode > android/app/keystore.jks
+          else
+            rm -f android/app/keystore.jks
+          fi
           if [ -n '${{ secrets.SERVICE_JSON }}' ]; then
             printf '%s' '${{ secrets.SERVICE_JSON }}' | base64 --decode > android/app/google-services.json
+          else
+            rm -f android/app/google-services.json
           fi
           {
             echo "keyAlias=${{ secrets.KEY_ALIAS }}"
