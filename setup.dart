@@ -163,7 +163,7 @@ Future<int> _package(
     'git',
     'https://github.com/chen08209/flutter_distributor.git',
     '--git-ref',
-    'Clash Arc',
+    'main',
     '--git-path',
     'packages/flutter_distributor',
   ]);
