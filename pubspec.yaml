@@ -1,7 +1,7 @@
 name: clash_arc
 description: A multi-platform proxy client based on ClashMeta, simple and easy to use, open-source and ad-free.
 publish_to: 'none'
-version: 0.8.96+2026081701
+version: 0.1.0+1
 environment:
   sdk: '>=3.8.0 <4.0.0'
 

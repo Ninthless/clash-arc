@@ -1,4 +1,4 @@
-cask "flclash" do
+cask "clash-arc" do
   version "VERSION"
 
   on_macos do
@@ -7,12 +7,12 @@ cask "flclash" do
     sha256 arm:   "ARM_SHA256",
            intel: "AMD_SHA256"
 
-    url "https://github.com/chen08209/FlClash/releases/download/v#{version}/FlClash-#{version}-macos-#{arch}.dmg"
+    url "https://github.com/Ninthless/clash-arc/releases/download/v#{version}/Clash Arc-#{version}-macos-#{arch}.dmg"
   end
 
-  name "FlClash"
+  name "Clash Arc"
   desc "Multi-platform proxy client based on ClashMeta"
-  homepage "https://github.com/chen08209/FlClash"
+  homepage "https://github.com/Ninthless/clash-arc"
 
   livecheck do
     url :url
@@ -21,11 +21,11 @@ cask "flclash" do
 
   depends_on :macos
 
-  app "FlClash.app"
+  app "Clash Arc.app"
 
   postflight do
     system_command "xattr",
-                   args: ["-rd", "com.apple.quarantine", "#{appdir}/FlClash.app"]
+                   args: ["-rd", "com.apple.quarantine", "#{appdir}/Clash Arc.app"]
   end
 
   uninstall quit: "com.follow.clash"

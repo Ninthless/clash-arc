@@ -60,7 +60,7 @@ docs/
 /android/core/**/cmake-build-*/
 /android/core/**/jniLibs/
 
-#FlClash
+# Clash Arc generated files
 /libclash/
 /android/app/src/main/jniLibs/
 /services/helper/target

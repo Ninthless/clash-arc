@@ -45,9 +45,9 @@ if TAG:
     text += f"\n**{TAG}**\n"
 
 if IS_STABLE:
-    text += f"\nhttps://github.com/chen08209/Clash Arc/releases/tag/{TAG}\n"
+    text += f"\nhttps://github.com/Ninthless/clash-arc/releases/tag/{TAG}\n"
 else:
-    text += f"\nhttps://github.com/chen08209/Clash Arc/actions/runs/{RUN_ID}\n"
+    text += f"\nhttps://github.com/Ninthless/clash-arc/actions/runs/{RUN_ID}\n"
 
 if os.path.exists(release):
     text += "\n"

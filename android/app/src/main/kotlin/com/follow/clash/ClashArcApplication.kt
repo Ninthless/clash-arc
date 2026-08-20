@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.follow.clash.common.GlobalState
 
-class Clash ArcApplication : Application() {
+class ClashArcApplication : Application() {
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         GlobalState.init(this)

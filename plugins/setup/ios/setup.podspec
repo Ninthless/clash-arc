@@ -1,13 +1,13 @@
 Pod::Spec.new do |s|
   s.name             = 'setup'
   s.version          = '0.0.1'
-  s.summary          = 'FlClash Go core build harness'
+  s.summary          = 'Clash Arc Go core build harness'
   s.description      = <<-DESC
-FlClash Go core build harness (FFI plugin).
+Clash Arc Go core build harness (FFI plugin).
                        DESC
   s.homepage         = 'http://example.com'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'FlClash' => 'email@example.com' }
+  s.author           = { 'Clash Arc' => 'email@example.com' }
   s.module_name      = 'setup'
   s.source           = { :path => '.' }
   s.source_files     = 'Classes/**/*'

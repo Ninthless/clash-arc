@@ -49,7 +49,7 @@ func Start(fd int, stack string, address, dns string) *sing_tun.Listener {
 
 	options := LC.Tun{
 		Enable:              true,
-		Device:              "FlClash",
+		Device:              "Clash Arc",
 		Stack:               tunStack,
 		DNSHijack:           dnsHijack,
 		AutoRoute:           false,
