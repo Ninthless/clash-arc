@@ -861,8 +861,10 @@ mod tests {
 
     #[test]
     fn verifies_core_sha256_in_all_build_modes() {
-        let path =
-            std::env::temp_dir().join(format!("clasharc-helper-core-sha256-{}", std::process::id()));
+        let path = std::env::temp_dir().join(format!(
+            "clasharc-helper-core-sha256-{}",
+            std::process::id()
+        ));
         let mut file = File::create(&path).unwrap();
         file.write_all(b"test").unwrap();
         drop(file);
