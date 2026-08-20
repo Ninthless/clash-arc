@@ -1,6 +1,7 @@
 name: build
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - 'v*'
@@ -103,7 +104,7 @@ jobs:
         run: cargo test --manifest-path services/helper/Cargo.toml --features windows-service
 
   build:
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v')
     needs: [ test, windows-helper-test ]
     runs-on: ${{ matrix.os }}
     strategy:
@@ -170,7 +171,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: master
+          channel: stable
           flutter-version: ${{ env.FLUTTER_VERSION }}
           cache: true
 
@@ -204,7 +205,7 @@ jobs:
           overwrite: true
 
   changelog:
-    if: ${{ !contains(github.ref, '-') }}
+    if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-') }}
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -259,6 +260,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   upload:
+    if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') }}
     permissions:
       contents: write
     needs: [ build ]
@@ -288,7 +290,7 @@ jobs:
         shell: bash
         run: |
           pre_tag=$(
-            curl --silent "https://api.github.com/repos/chen08209/Clash Arc/releases/latest" |
+            curl --silent "https://api.github.com/repos/Ninthless/clash-arc/releases/latest" |
               sed -nE 's/.*"tag_name": "([^"]+)".*/\1/p'
           )
           bash .github/scripts/generate_release_notes.sh "$pre_tag" release.md
@@ -341,7 +343,7 @@ jobs:
           SSH_DEPLOY_KEY: ${{ secrets.HOMEBREW_SSH_DEPLOY_KEY }}
         with:
           source-directory: ./brew/
-          destination-github-username: chen08209
+          destination-github-username: Ninthless
           destination-repository-name: homebrew-tap
           user-name: 'chen08029'
           user-email: 'chen08209@gmail.com'
@@ -363,8 +365,8 @@ jobs:
           SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
         with:
           source-directory: ./tmp/
-          destination-github-username: chen08209
-          destination-repository-name: Clash Arc-fdroid-repo
+          destination-github-username: Ninthless
+          destination-repository-name: clash-arc-fdroid-repo
           user-name: 'chen08029'
           user-email: 'chen08209@gmail.com'
           target-branch: main
